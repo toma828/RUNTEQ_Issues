@@ -82,6 +82,9 @@ test:
 #
 production:
   <<: *default
+  adapter: postgresq;
+  encoding: unicode
+  pool: 5
   database: fantasyailyapp
   username: <%= ENV['MYAPP_DATABASE_USERNAME'] %>
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
