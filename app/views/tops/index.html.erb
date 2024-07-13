@@ -1,1 +1,45 @@
-aiueo
+<div class="mx-24 font-serif border border-black p-5">
+  <article>
+    <h2 class="text-5xl font-bold mb-5">The old wizard Aldias sealed in a book.</h2>
+    
+    <div class="flex flex-col md:flex-row items-start">
+      <div class="md:w-1/3 pr-4">
+        <p class="text-lg leading-relaxed">
+          親愛なる魔法使いの皆様へ、
+
+          この手紙と共に、かつての魔法学院の教授アルディアスが封印された特別な本をお届けいたします。アルディアス教授は魔法の実験の失敗により、自身を一冊の本に封じ込めるという前代未聞の事態に遭遇しました。
+
+          しかし、驚くべきことに、アルディアス教授の精神は本の中で生き続けており、特別な魔法使いである皆様との交流が可能なのです。この本は、教授が開発した「知識の収穫」と呼ばれる古代魔法を実践する機会を提供します。
+
+          皆様にお願いしたいのは、この本に日々の冒険や学びを記録していただくことです。そうすることで、アルディアス教授の知識が再び成長し、魔法界に新たな叡智をもたらす可能性があるのです。
+
+          この貴重な機会を活かし、魔法の発展に貢献していただけることを心より願っております。
+
+          敬具
+          魔法書管理局
+        </p>
+        <div class="mx-20 justify-center">
+            <div class="space-x-4 mt-6 border-x-2 border-black text-center">
+                <%= link_to "魔法の書を開く", "#", class: "text-3xl font-bold " %>
+            </div>
+            <div class="space-x-4 mt-6 border-x-2 border-black text-center">
+            <%= link_to "#", class: "text-3xl font-bold  px-4 py-2" do %>
+                本を手にする<br>
+                <span class="text-lg font-normal">(新規会員登録はこちら)</span>
+            <% end %> 
+            </div>
+        </div>
+      </div>
+      <div class="md:w-2/3 mt-4 md:mt-0 flex justify-center">
+        <%= image_tag "top_book.png", alt: "魔法書", class: "w-1/2 h-auto rounded-lg shadow-md" %>
+      </div>
+    </div>
+
+    <div class="border border-black p-3 my-5">
+      <h3 class="text-2xl mb-2">注意事項</h3>
+      <p class="text-base">
+        この本は強力な魔法が封印されているため、取り扱いには十分ご注意ください。不適切な使用は、魔法界の秩序を乱す可能性があります。ご不明な点がございましたら、いつでも魔法書管理局までお問い合わせください。
+      </p>
+    </div>
+  </article>
+</div>

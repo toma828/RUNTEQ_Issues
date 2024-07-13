@@ -38,7 +38,10 @@ RUN bundle install && \
 
 # Install node modules
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile && \
+    yarn global add esbuild tailwindcss 
+
+CMD [ "yarn", "build" ]
 
 # Copy application code
 COPY . .

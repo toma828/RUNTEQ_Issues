@@ -11,7 +11,7 @@ module.exports = {
       "header-bg": "url('header_bg.png')",
       "main-bg": "url('main_bg.png')",
       "footer-bg": "url('footer_bg.png')",
-    }
+    },
   },
   plugins: [require("daisyui")],
 }
