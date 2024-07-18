@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
+  has_many :diaries
 
   validates :name, presence: true, length: { maximum: 50, allow_blank: true}
   validates :email, presence: true, uniqueness: true

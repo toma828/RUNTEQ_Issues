@@ -1,0 +1,25 @@
+<div class="mx-24 font-serif border border-black p-5 text-black">
+  <div class="flex justify-between text-sm py-2 font-serif text-xl">
+    <%= link_to '<前の週:', diaries_path(start_date: @start_date - 1.week), class: "text-black hover:text-gray-600 transition duration-300" %>
+    <%= link_to ':次の週>', diaries_path(start_date: @start_date + 1.week), class: "text-black hover:text-gray-600 transition duration-300" %>
+  </div>
+
+  <table class="w-full border-collapse">
+    <% (@start_date..@end_date).each do |date| %>
+      <tr class="border-t border-b border-black">
+        <td class="py-4">
+          <div class="flex flex-col">
+            <span class="text-lg font-semibold mb-4"><%= date.strftime('%a : %Y/%m/%d') %></span>
+            <span>
+              <% if @diaries[date] %>
+                <%= link_to '日記を見る', @diaries[date], class: "text-blue-600 hover:text-blue-800 transition duration-300" %>
+              <% else %>
+                <%= link_to '日記を書く', new_diary_path(date: date), class: "text-green-600 hover:text-green-800 transition duration-300" %>
+              <% end %>
+            </span>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

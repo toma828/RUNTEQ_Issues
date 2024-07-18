@@ -1,0 +1,23 @@
+<div class="mx-24 font-serif border border-black p-5 text-black">
+
+  <div class="diary-content">
+    <p>
+        <strong>日付:</strong>
+        <%= @diary.date %>
+    </p>
+
+    <p>
+        <strong>内容:</strong>
+        <%= @diary.content %>
+    </p>
+  </div>
+
+  <div class="chatgpt-response">
+    <h2>アルディアスからの返信</h2>
+    <p><%= @chatgpt_response %></p>
+  </div>
+
+  <%= link_to '削除', diary_path(@diary),data: {turbo_method: :delete,turbo_confirm: '本当に削除しますか？'}%>
+  <%= link_to '編集', edit_diary_path(@diary) %> |
+  <%= link_to '戻る', diaries_path %>
+</div>
