@@ -6,6 +6,10 @@
         <%= @diary.date %>
     </p>
 
+    <% if @diary.image.present? %>
+        <%= image_tag @diary.image.url %>
+    <% end %>
+
     <p>
         <strong>内容:</strong>
         <%= @diary.content %>

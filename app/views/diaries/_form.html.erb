@@ -9,7 +9,13 @@
     <%= form.text_area :content, rows: 10, class: "mt-1 block w-full rounded-md border-black shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-transparent" %>
   </div>
 
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
   <div class="actions">
     <%= form.submit "Create Diary", class: "px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" %>
   </div>
+
 <% end %>

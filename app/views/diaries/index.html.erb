@@ -10,13 +10,21 @@
         <td class="py-4">
           <div class="flex flex-col">
             <span class="text-lg font-semibold mb-4"><%= date.strftime('%a : %Y/%m/%d') %></span>
-            <span>
+            <div class="flex justify-between text-sm py-2 font-serif text-xl">
+              <span>
               <% if @diaries[date] %>
                 <%= link_to '日記を見る', @diaries[date], class: "text-blue-600 hover:text-blue-800 transition duration-300" %>
+                <p class="text-sm mt-2 text-gray-600"><%= truncate(@diaries[date].content, length: 30) %></p>
               <% else %>
                 <%= link_to '日記を書く', new_diary_path(date: date), class: "text-green-600 hover:text-green-800 transition duration-300" %>
               <% end %>
-            </span>
+              </span>
+              <span>
+                <% if @diaries && @diaries[date] && @diaries[date].image.present? %>
+                  <%= image_tag @diaries[date].image.thumb.url %>
+                <% end %>
+              </span>
+            </div>
           </div>
         </td>
       </tr>
