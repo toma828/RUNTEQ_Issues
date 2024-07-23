@@ -1,0 +1,8 @@
+<h1>ChatGPTからの返信を待っています</h1>
+<p>しばらくお待ちください。自動的に返信ページに移動します。</p>
+
+<script>
+  setTimeout(function() {
+    window.location.href = '<%= chatgpt_response_diary_path(@diary) %>';
+  }, 5000); // 5秒後にリダイレクト
+</script>

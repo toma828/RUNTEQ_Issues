@@ -1,5 +1,5 @@
 class DiariesController < ApplicationController
-  before_action :set_diary, only: [:show, :edit, :update, :destroy, :chatgpt_response]
+  before_action :set_diary, only: [:show, :edit, :update, :destroy, :waiting_for_response, :chatgpt_response]
 
   def index
     @start_date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today.beginning_of_week
@@ -18,7 +18,7 @@ class DiariesController < ApplicationController
   def create
     @diary = current_user.diaries.build(diary_params)
     if @diary.save
-      redirect_to chatgpt_response_diary_path(@diary), notice: '日記が作成されました。'
+      redirect_to waiting_for_response_diary_path(@diary), notice: '日記が作成されました。'
     else
       render :new
     end
@@ -39,29 +39,15 @@ class DiariesController < ApplicationController
     redirect_to diaries_url, notice: '日記が削除されました。'
   end
 
+  def waiting_for_response;  end
+
   def chatgpt_response
-    @chatgpt_response = generate_chatgpt_response(@diary)
-    @diary.update(chatgpt_response: @chatgpt_response)
-  end
-
-  private
-
-  def generate_chatgpt_response(diary)
-    client = OpenAI::Client.new
-    response = client.chat(
-      parameters: {
-        model: "gpt-3.5-turbo", # または適切なモデルを指定
-        messages: [
-          { role: "system", content: "あなたはアルディアスという名前の老魔法使いです。ユーザーの日記に対して、魔法使いらしい言葉遣いで温かくアドバイスをしてください。" },
-          { role: "user", content: diary.content }
-        ],
-        temperature: 0.7,
-      }
-    )
-    response.dig("choices", 0, "message", "content")
-  rescue => e
-    Rails.logger.error "ChatGPT API error: #{e.message}"
-    "申し訳ありません。アルディアスからの返信を取得できませんでした。"
+    @chatgpt_response = @diary.chatgpt_response
+    if @chatgpt_response
+      redirect_to @diary, notice: 'ChatGPTからの返信が届きました。'
+    else
+      redirect_to waiting_for_response_diary_path(@diary), notice: 'ChatGPTからの返信をまだ待っています。'
+    end
   end
 
   private

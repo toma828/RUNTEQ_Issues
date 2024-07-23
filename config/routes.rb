@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :diaries do
     member do
-      get 'chatgpt_response'
+      get :waiting_for_response
+      get :chatgpt_response
     end
   end
 end

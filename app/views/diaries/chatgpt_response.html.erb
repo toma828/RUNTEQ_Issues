@@ -1,6 +1,16 @@
 <div class="mx-24 font-serif border border-black p-5 text-black">
   <div class="chatgpt-response">
-    <p><%= @chatgpt_response %></p>
+    <% if @diary.chatgpt_response %>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">ChatGPTからの返信</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @diary.chatgpt_response %></dd>
+      </div>
+    <% else %>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">ChatGPTからの返信</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">返信を生成中です...</dd>
+      </div>
+    <% end %>
   </div>
 
   <%= link_to '日記詳細を見る', @diary %> |

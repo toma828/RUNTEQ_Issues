@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_19_153708) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_092820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chatgpt_responses", force: :cascade do |t|
+    t.text "content"
+    t.bigint "diary_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diary_id"], name: "index_chatgpt_responses_on_diary_id"
+  end
 
   create_table "diaries", force: :cascade do |t|
     t.text "content"
@@ -35,5 +43,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_153708) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "chatgpt_responses", "diaries"
   add_foreign_key "diaries", "users"
 end
