@@ -1,8 +1,29 @@
-<h1>ChatGPTからの返信を待っています</h1>
-<p>しばらくお待ちください。自動的に返信ページに移動します。</p>
+<div class="mx-24 font-serif border border-black p-5 text-black bg-parchment">
+  <h1 class="text-2xl mb-4">おお、急がば回れじゃ。しばし待たれよ。</h1>
+  <p class="mb-4">わしの老いた手で、古の魔法書をめくりながら、汝の問いに対する答えを紡いでおる。魔法の力は拙速を好まぬ。じっくりと待つのじゃ。</p>
+  <p id="status" class="text-lg font-bold">現在アルディアスが返答を記載中</p>
+  <a href="<%= diary_path(@diary) %>" id="cancelLink" class="text-blue-600 hover:underline" style="display: none;">魔法を中断して日記の書庫へ戻る</a>
 
-<script>
-  setTimeout(function() {
-    window.location.href = '<%= chatgpt_response_diary_path(@diary) %>';
-  }, 5000); // 5秒後にリダイレクト
-</script>
+  <script>
+    var dots = 0;
+    var statusElement = document.getElementById('status');
+    var cancelLink = document.getElementById('cancelLink');
+    var totalTime = 0;
+
+    var timerId = setInterval(function() {
+      dots = (dots + 1) % 6;
+      statusElement.textContent = '現在アルディアスが返答を記載中' + '.'.repeat(dots);
+      totalTime++;
+
+      if (totalTime >= 90) {
+        clearInterval(timerId);
+        window.location.href = '<%= diary_path(@diary) %>';
+      }
+    }, 1000);
+
+    // 15秒後にキャンセルリンクを表示
+    setTimeout(function() {
+      cancelLink.style.display = 'block';
+    }, 15000);
+  </script>
+</div>

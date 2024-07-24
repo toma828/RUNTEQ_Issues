@@ -1,5 +1,6 @@
 class Diary < ApplicationRecord
   belongs_to :user
+  mount_uploader :image, ImageUploader
   after_create :generate_chatgpt_response
 
   validates :content, presence: true
