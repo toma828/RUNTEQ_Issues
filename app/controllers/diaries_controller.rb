@@ -43,8 +43,12 @@ class DiariesController < ApplicationController
 
   def chatgpt_response
     @chatgpt_response = @diary.chatgpt_response
-    if @chatgpt_response
-      redirect_to @diary, notice: 'ChatGPTからの返信が届きました。'
+    if @chatgpt_response.present?
+      if @chatgpt_response.start_with?("今日はもう魔力がなくなってしもうた。日がのぼる時魔力が回復するだろう。")
+        redirect_to @diary, alert: @chatgpt_response
+      else
+        redirect_to @diary, notice: 'アルディアスからの返信が届きました。'
+      end
     else
       redirect_to waiting_for_response_diary_path(@diary), notice: 'ChatGPTからの返信をまだ待っています。'
     end

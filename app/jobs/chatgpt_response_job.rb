@@ -6,7 +6,7 @@ class ChatgptResponseJob < ApplicationJob
     return if diary.chatgpt_response.present?
 
     begin
-      chat_gpt_service = ChatGptService.new      
+      chat_gpt_service = ChatGptService.new(diary.user)      
       response = chat_gpt_service.generate_response(diary.content)
       diary.update(chatgpt_response: response)
     rescue StandardError => e
