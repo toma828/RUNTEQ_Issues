@@ -4,7 +4,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [:user_activation]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -559,6 +559,14 @@ Rails.application.config.sorcery.configure do |config|
     # Default: `:uid`
     #
     # user.provider_uid_attribute_name =
+
+    user.activation_state_attribute_name = :activation_state
+    user.activation_token_attribute_name = :activation_token
+    user.activation_token_expires_at_attribute_name = :activation_token_expires_at
+    user.user_activation_mailer = UserMailer
+    user.activation_needed_email_method_name = :activation_needed_email
+    user.activation_success_email_method_name = :activation_success_email
+    user.prevent_non_active_users_to_login = true
   end
 
   # This line must come after the 'user config' block.
