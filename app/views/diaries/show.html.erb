@@ -20,12 +20,12 @@
       <%= form.check_box :remove_image, id: "remove_image", class: "hidden" %>
       <img data-diary-editor-target="imagePreview" class="mt-2 hidden" />
       <p><strong>内容:</strong>
-      <%= form.text_area :content, class: "w-full p-2 border border-black rounded bg-transparent" %>
+      <%= form.text_area :content, class: "w-full p-2 border border-black rounded bg-transparent hover:border-light-blue" %>
 
       <div class="flex mt-2 space-x-2">
-        <button type="button" data-action="click->diary-editor#removeImage" class="px-4 py-2 border-x border-black text-black">画像を削除</button>
-        <%= form.submit "更新", class: "px-4 py-2 border-r border-black text-black" %>
-        <button data-diary-editor-target="cancelButton" data-action="click->diary-editor#cancelEdit" class="px-4 py-2 border-x border-black text-black hidden">
+        <button type="button" data-action="click->diary-editor#removeImage" class="w-32 px-4 py-2 border-x border-black text-black hover:text-light-red">画像を削除</button>
+        <%= form.submit "更新", class: "w-32 px-4 py-2 border-r border-black text-black hover:text-light-red" %>
+        <button data-diary-editor-target="cancelButton" data-action="click->diary-editor#cancelEdit" class="w-32 px-4 py-2 border-r border-black text-black hidden hover:text-light-red">
           キャンセル
         </button>
       </div>
@@ -47,9 +47,9 @@
 
   <div class="mt-4 flex justify-between items-center">
     <div>
-      <%= link_to '戻る', diaries_path, class: "px-4 py-2 border-x border-black text-black " %>
-      <%= link_to '編集', '#', data: { diary_editor_target: "editLink", action: "click->diary-editor#startEdit" }, class: "ml-2 px-4 py-2 border-r border-black text-black" %>
+      <%= link_to '戻る', diaries_path, class: "px-4 py-2 border-x border-black text-black hover:text-light-red" %>
+      <%= link_to '編集', '#', data: { diary_editor_target: "editLink", action: "click->diary-editor#startEdit" }, class: "ml-2 px-4 py-2 border-r border-black text-black hover:text-light-red" %>
     </div>
-    <%= link_to '削除', diary_path(@diary), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "px-4 py-2 border-x border-black text-black" %>
+    <%= link_to '削除', diary_path(@diary), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "px-4 py-2 border-x border-black text-black hover:text-light-red" %>
   </div>
 </div>
