@@ -28,9 +28,21 @@ class DiariesController < ApplicationController
 
   def update
     if @diary.update(diary_params)
-      redirect_to @diary, notice: '日記が更新されました。'
+      respond_to do |format|
+        format.html { redirect_to @diary, notice: '日記が更新されました。' }
+        format.json { 
+          render json: { 
+            success: true, 
+            content: @diary.content,
+            image_url: @diary.image.url # CarrierWaveの場合は.urlメソッドを使用
+          } 
+        }
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit }
+        format.json { render json: { success: false, errors: @diary.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -61,6 +73,6 @@ class DiariesController < ApplicationController
   end
 
   def diary_params
-    params.require(:diary).permit(:content, :date, :image)
+    params.require(:diary).permit(:content, :date, :image, :image_cache, :remove_image)
   end
 end

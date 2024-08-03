@@ -4,5 +4,11 @@
 
 import { application } from "./application"
 
+import DiaryEditorController from "./diary_editor_controller"
+application.register("diary-editor", DiaryEditorController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import MessageController from "./message_controller"
+application.register("message", MessageController)

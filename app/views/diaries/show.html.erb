@@ -1,35 +1,55 @@
-<div class="mx-24 font-serif border border-black p-5 text-black">
-
-  <div class="diary-content">
-    <p>
-        <strong>日付:</strong>
-        <%= @diary.date %>
+<div class="mx-24 font-serif border border-black p-5 text-black" data-controller="diary-editor" data-diary-id="<%= @diary.id %>">
+  <div class="diary-content mb-6">
+    <p class="mb-4">
+      <strong>日付:</strong>
+      <%= @diary.date %>
     </p>
 
-    <% if @diary.image.present? %>
-        <%= image_tag @diary.image.url %>
+    <% if @diary.image? %>
+      <%= image_tag @diary.image.url, data: { diary_editor_target: "image" } %>
     <% end %>
 
     <p>
-        <strong>内容:</strong>
-        <%= @diary.content %>
+      <strong data-diary-editor-target="contentLabel">内容:</strong>
+      <span data-diary-editor-target="content"><%= @diary.content %></span>
     </p>
+
+    <%= form_with(model: @diary, local: false, class: "hidden", data: { diary_editor_target: "editForm", action: "submit->diary-editor#submitForm" }) do |form| %>
+      <%= form.file_field :image, class: "mt-2", data: { action: "change->diary-editor#previewImage" } %>
+      <%= form.hidden_field :image_cache %>
+      <%= form.check_box :remove_image, id: "remove_image", class: "hidden" %>
+      <img data-diary-editor-target="imagePreview" class="mt-2 hidden" />
+      <p><strong>内容:</strong>
+      <%= form.text_area :content, class: "w-full p-2 border border-black rounded bg-transparent" %>
+
+      <div class="flex mt-2 space-x-2">
+        <button type="button" data-action="click->diary-editor#removeImage" class="px-4 py-2 border-x border-black text-black">画像を削除</button>
+        <%= form.submit "更新", class: "px-4 py-2 border-r border-black text-black" %>
+        <button data-diary-editor-target="cancelButton" data-action="click->diary-editor#cancelEdit" class="px-4 py-2 border-x border-black text-black hidden">
+          キャンセル
+        </button>
+      </div>
+    <% end %>
   </div>
 
-  <div class="chatgpt-response">
+  <div class="chatgpt-response" data-diary-editor-target="response">
     <h2>アルディアスからの返信</h2>
     <% if @diary.chatgpt_response %>
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @diary.chatgpt_response %></dd>
+      <div class="bg-transparent border border-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dd class="mt-1 text-sm text-black sm:mt-0 sm:col-span-2"><%= @diary.chatgpt_response %></dd>
       </div>
     <% else %>
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">ううむ...。すまぬが投写魔法が失敗したようじゃ。</dd>
+      <div class="bg-transparent border border-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dd class="mt-1 text-sm text-black sm:mt-0 sm:col-span-2">ううむ...。すまぬが投写魔法が失敗したようじゃ。</dd>
       </div>
     <% end %>
   </div>
 
-  <%= link_to '削除', diary_path(@diary),data: {turbo_method: :delete,turbo_confirm: '本当に削除しますか？'}%>
-  <%= link_to '編集', edit_diary_path(@diary) %> |
-  <%= link_to '戻る', diaries_path %>
+  <div class="mt-4 flex justify-between items-center">
+    <div>
+      <%= link_to '戻る', diaries_path, class: "px-4 py-2 border-x border-black text-black " %>
+      <%= link_to '編集', '#', data: { diary_editor_target: "editLink", action: "click->diary-editor#startEdit" }, class: "ml-2 px-4 py-2 border-r border-black text-black" %>
+    </div>
+    <%= link_to '削除', diary_path(@diary), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "px-4 py-2 border-x border-black text-black" %>
+  </div>
 </div>
