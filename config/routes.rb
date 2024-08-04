@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     member do
       get :waiting_for_response
       get :chatgpt_response
+      get :check_response
     end
   end
 

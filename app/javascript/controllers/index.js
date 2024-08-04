@@ -18,3 +18,6 @@ application.register("image-preview", ImagePreviewController)
 
 import MessageController from "./message_controller"
 application.register("message", MessageController)
+
+import WaitingResponseController from "./waiting_response_controller"
+application.register("waiting-response", WaitingResponseController)

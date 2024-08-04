@@ -2,9 +2,10 @@ class DiariesController < ApplicationController
   before_action :set_diary, only: [:show, :edit, :update, :destroy, :waiting_for_response, :chatgpt_response]
 
   def index
-    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today.beginning_of_week
-    @end_date = @start_date.end_of_week
-    @diaries = current_user.diaries.where(date: @start_date..@end_date).index_by(&:date)
+    @selected_date = params[:selected_date] ? Date.parse(params[:selected_date]) : Date.today
+    @start_date = @selected_date.beginning_of_week(:sunday)
+    @end_date = @start_date + 6.days
+    @diaries = Diary.where(date: @start_date..@end_date).index_by(&:date)
   end
 
   def show
@@ -51,7 +52,14 @@ class DiariesController < ApplicationController
     redirect_to diaries_url, notice: '日記が削除されました。'
   end
 
-  def waiting_for_response;  end
+  def waiting_for_response
+    @diary = current_user.diaries.find(params[:id])
+  end
+
+  def check_response
+    @diary = current_user.diaries.find(params[:id])
+    render json: { response: @diary.chatgpt_response }
+  end
 
   def chatgpt_response
     @chatgpt_response = @diary.chatgpt_response
@@ -59,10 +67,10 @@ class DiariesController < ApplicationController
       if @chatgpt_response.start_with?("今日はもう魔力がなくなってしもうた。日がのぼる時魔力が回復するだろう。")
         redirect_to @diary, alert: @chatgpt_response
       else
-        redirect_to @diary, notice: 'アルディアスからの返信が届きました。'
+        redirect_to chatgpt_response, notice: 'アルディアスからの返信が届きました。'
       end
     else
-      redirect_to waiting_for_response_diary_path(@diary), notice: 'ChatGPTからの返信をまだ待っています。'
+      redirect_to waiting_for_response_diary_path(@diary), notice: 'アルディアスからの返信をまだ待っています。'
     end
   end
 
