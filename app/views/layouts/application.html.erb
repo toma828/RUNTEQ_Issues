@@ -18,7 +18,9 @@
     <% end %>
     <%= render 'shared/header' %>
     <main class="relative bg-main-bg bg-center bg-cover object-cover">
-      <%= yield %>
+      <div class="mx-24 p-8 text-black" style="min-height: 650px; position: relative;">
+        <%= yield %>
+      </div>
     </main>
     <%= render 'shared/footer' %>
   </body>

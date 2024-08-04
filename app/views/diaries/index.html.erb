@@ -1,33 +1,48 @@
-<div class="mx-24 font-serif border border-black p-5 text-black">
-  <div class="flex justify-between text-sm py-2 font-serif text-xl">
-    <%= link_to '<前の週:', diaries_path(start_date: @start_date - 1.week), class: "text-black hover:text-gray-600 transition duration-300" %>
-    <%= link_to ':次の週>', diaries_path(start_date: @start_date + 1.week), class: "text-black hover:text-gray-600 transition duration-300" %>
+<div class="max-w-4xl mx-auto my-8 font-serif">
+  <div class="flex justify-between items-center mb-6 text-amber-900">
+    <%= link_to '< 前の週', diaries_path(start_date: @start_date - 1.week), class: "hover:text-amber-700 transition duration-300 text-xl" %>
+    
+    <div class="relative" data-controller="calendar">
+      <input type="text" data-calendar-target="input" class="bg-transparent border-b-2 border-amber-900 focus:outline-none focus:border-amber-700 text-center" value="<%= @start_date.strftime('%Y-%m-%d') %>" readonly>
+      <button type="button" data-action="calendar#toggle" class="ml-2 text-amber-900 hover:text-amber-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div data-calendar-target="calendar" class="hidden absolute top-full left-1/2 transform -translate-x-1/2 bg-white shadow-md rounded-md p-2 z-10">
+      </div>
+    </div>
+    
+    <%= link_to '次の週 >', diaries_path(start_date: @start_date + 1.week), class: "hover:text-amber-700 transition duration-300 text-xl" %>
   </div>
 
-  <table class="w-full border-collapse">
+  <div class="space-y-6">
     <% (@start_date..@end_date).each do |date| %>
-      <tr class="border-t border-b border-black">
-        <td class="py-4">
-          <div class="flex flex-col">
-            <span class="text-lg font-semibold mb-4"><%= date.strftime('%a : %Y/%m/%d') %></span>
-            <div class="flex justify-between text-sm py-2 font-serif text-xl">
-              <span>
-              <% if @diaries[date] %>
-                <%= link_to '日記を見る', @diaries[date], class: "text-blue-600 hover:text-blue-800 transition duration-300" %>
-                <p class="text-sm mt-2 text-gray-600"><%= truncate(@diaries[date].content, length: 30) %></p>
-              <% else %>
-                <%= link_to '日記を書く', new_diary_path(date: date), class: "text-green-600 hover:text-green-800 transition duration-300" %>
-              <% end %>
-              </span>
-              <span>
-                <% if @diaries && @diaries[date] && @diaries[date].image.present? %>
-                  
-                <% end %>
-              </span>
+      <div class="border-b-2 border-amber-900 pb-4">
+        <% if @diaries[date] %>
+          <%= link_to diary_path(@diaries[date]), class: "block hover:bg-amber-100 transition duration-300" do %>
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-semibold text-amber-900"><%= date.strftime('%a : %Y/%m/%d') %></span>
+              <span class="text-amber-700 hover:text-amber-900 transition duration-300">日記を見る</span>
             </div>
-          </div>
-        </td>
-      </tr>
+            <% if @diaries[date].image.present? %>
+              <div class="mt-2">
+                <%= image_tag @diaries[date].image.url, class: "max-w-xs border-2 border-amber-900" %>
+              </div>
+            <% end %>
+            <p class="mt-2 text-amber-900" style="line-height: 2; background-image: repeating-linear-gradient(transparent, transparent 31px, #8C6D5C 31px, #8C6D5C 32px); padding: 8px 0;">
+              <%= truncate(@diaries[date].content, length: 100) %>
+            </p>
+          <% end %>
+        <% else %>
+          <%= link_to new_diary_path(date: date), class: "block hover:bg-amber-100 transition duration-300" do %>
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-semibold text-amber-900"><%= date.strftime('%a : %Y/%m/%d') %></span>
+              <span class="text-green-700 hover:text-green-900 transition duration-300">日記を書く</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
-  </table>
+  </div>
 </div>

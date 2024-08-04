@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+console.log("P")
 
 export default class extends Controller {
   static targets = ["content", "contentLabel", "editForm", "cancelButton", "editLink", "image", "imagePreview", "response"]

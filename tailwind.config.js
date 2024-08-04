@@ -10,6 +10,12 @@ module.exports = {
       colors: {
         'light-red': '#ff9999', // 淡い赤色
         'light-blue': '#a0d6ff', // 淡い青色
+        yellow: {
+          700: '#B7791F',
+          800: '#975A16',
+          900: '#744210',
+        },
+        'light-gray': '#8C6D5C',
       },
     },
     backgroundImage: {

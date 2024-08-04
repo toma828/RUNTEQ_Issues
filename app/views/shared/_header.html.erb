@@ -1,39 +1,38 @@
-<header class="bg-header-bg text-black py-6 bg-cover text-black">
+<header class="bg-header-bg bg-cover pt-6 text-amber-900 border-amber-900">
+  <div class="border-t-4 border-yellow-900 h-4 shadow-inner mx-4 md:mx-8"></div>
+  
+  <div class="border-t border-yellow-900 mx-4 md:mx-8 -mt-2"></div>
+  
   <div class="container mx-auto px-4">
-    <!-- Top border -->
-    <div class="border-t-2 border-black"></div>
-    
-    <!-- Logo and main title -->
-    <div class="text-center py-4">
-      <%= image_tag 'logo.png', class: 'h-auto mx-auto mb-2' %>
-    </div>
-    
-    <!-- Middle border -->
-    <div class="border-t border-black"></div>
-    
-    <!-- Navigation -->
-    <nav class="py-2">
-      <ul class="flex justify-center space-x-6 text-sm font-serif">
-        <li><%= link_to "Home", root_path, class: "text-2xl border-r border-black pr-4 hover:underline" %></li>
-        <li><%= link_to "今日のアルディアスと文通", new_diary_path(date: Date.today), class: "text-2xl border-r border-black pr-4 hover:underline" %></li>
-        <li><%= link_to "日記一覧", diaries_path, class: "text-2xl border-r border-black pr-4 hover:underline" %></li>
-        <li><%= link_to "友達日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline" %></li>
-        <li><%= link_to "みんなの日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline" %></li>
-      </ul>
-    </nav>
-    
-    <!-- Bottom border -->
-    <div class="border-t-2 border-black"></div>
-    
-    <!-- Date and edition -->
-    <div class="flex justify-between text-sm py-2 font-serif">
-      <span><%= Date.today.strftime("%A, %B %d, %Y") %></span>
-      <% if logged_in? %>
-        <span><%= link_to "本を閉じる", session_path, class: "text-xl pr-4 hover:underline", data: {turbo_method: :delete} %></span>
-      <% else %>
-        <span>Morning Edittion</span>
-      <% end %>
-    </div>
+    <div class="text-center py-6">
+      <%= image_tag 'logo.png', class: 'h-32 mx-auto' %>
     </div>
   </div>
+
+  <div class="border-y border-yellow-900 mx-4 md:mx-8">
+    <div class="border-t border-yellow-900 md:mx-0 mt-0.5">
+      <nav class="container mx-auto px-4 py-4">
+        <ul class="flex flex-wrap justify-center space-x-4 text-lg font-serif">
+          <li><%= link_to "Home", root_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+          <li><%= link_to "今日の日記", new_diary_path(date: Date.today), class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+          <li><%= link_to "日記一覧", diaries_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+          <li><%= link_to "友達日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+          <li><%= link_to "みんなの日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between text-sm py-3 font-serif">
+      <span class="italic"><%= Date.today.strftime("%A, %B %d, %Y") %></span>
+      <% if logged_in? %>
+        <span><%= link_to "本を閉じる", session_path, class: "hover:text-brown-700 transition duration-300 hover:text-light-red", data: {turbo_method: :delete} %></span>
+      <% else %>
+        <span class="italic">Morning Edition</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="border-b-4 border-yellow-900 h-4 shadow-inner mt-2 mx-4 md:mx-8"></div>
 </header>
