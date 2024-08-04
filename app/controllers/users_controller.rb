@@ -10,7 +10,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: '確認メールを送信しました。メールを確認して登録を完了してください。'
     else
-      render :new
+      redirect_to action: :new
+      flash[:errors] = @user.errors.full_messages
     end
   end
 
