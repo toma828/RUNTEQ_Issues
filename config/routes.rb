@@ -7,4 +7,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "tops#index"
+
+  resources :users, only: [:new, :create]
+  resource :session, only: [:new, :create, :destroy]
+  resources :diaries do
+    member do
+      get :waiting_for_response
+      get :chatgpt_response
+    end
+  end
 end

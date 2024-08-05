@@ -1,0 +1,45 @@
+<div class="mx-24 font-serif border border-black p-5 text-black">
+  <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+    <h2 class="text-5xl font-bold mb-5">魔法の書にログイン</h2>
+  </div>  
+
+  <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+    <%= form_with(url: session_path, local: true, class: "space-y-4") do |f| %>
+      <div>
+        <%= f.label :email, "魔法の通信アドレス", class: "block text-lg" %>
+        <%= f.email_field :email, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2 appearance-none" %>
+      </div>
+
+      <div>
+        <%= f.label :password, "秘密の呪文", class: "block text-lg" %>
+        <%= f.password_field :password, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
+      </div>
+
+      <div>
+        <%= f.submit "魔法の書を開く", class: "bg-purple-700 text-white px-6 py-3 rounded-full hover:bg-purple-800 transition duration-300 mt-4" %>
+      </div>
+    <% end %>
+
+    <div class="mt-4">
+      <%= link_to "新しく魔法使いになる方はこちら", new_user_path, class: "text-blue-600 hover:underline" %>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+</style>
