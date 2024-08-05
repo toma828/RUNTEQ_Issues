@@ -1,0 +1,35 @@
+<div class="mx-24 font-serif border border-black p-5 text-black">
+
+  <div class="diary-content">
+    <p>
+        <strong>日付:</strong>
+        <%= @diary.date %>
+    </p>
+
+    <% if @diary.image.present? %>
+        <%= image_tag @diary.image.url %>
+    <% end %>
+
+    <p>
+        <strong>内容:</strong>
+        <%= @diary.content %>
+    </p>
+  </div>
+
+  <div class="chatgpt-response">
+    <h2>アルディアスからの返信</h2>
+    <% if @diary.chatgpt_response %>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @diary.chatgpt_response %></dd>
+      </div>
+    <% else %>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">ううむ...。すまぬが投写魔法が失敗したようじゃ。</dd>
+      </div>
+    <% end %>
+  </div>
+
+  <%= link_to '削除', diary_path(@diary),data: {turbo_method: :delete,turbo_confirm: '本当に削除しますか？'}%>
+  <%= link_to '編集', edit_diary_path(@diary) %> |
+  <%= link_to '戻る', diaries_path %>
+</div>
