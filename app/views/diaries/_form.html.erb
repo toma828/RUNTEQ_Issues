@@ -1,0 +1,28 @@
+<%= form_with(model: @diary, local: true, data: { controller: "diary-form image-preview" }) do |form| %>
+  <div class="space-y-6">
+    <div class="flex items-center space-x-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-700" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+      </svg>
+      <%= form.date_field :date, class: "flex-grow bg-transparent border-b-2 border-yellow-900 focus:outline-none focus:border-yellow-900" %>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-700" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+      </svg>
+      <%= form.file_field :image, class: "flex-grow text-sm text-yellow-900", data: { action: "change->image-preview#preview" } %>
+    </div>
+      
+    <div id="image-preview" data-image-preview-target="preview" class="mt-4 hidden">
+      <img src="" alt="画像プレビュー" class="max-w-full h-auto rounded-md shadow-md">
+    </div>
+
+    <div><p>内容：</p></div>
+    <%= form.text_area :content, rows: 10, 
+        class: "w-full bg-transparent border-b-2 border-light-gray focus:outline-none focus:border-yellow-900 resize-none",
+        style: "background-image: repeating-linear-gradient(transparent, transparent 31px, #A67B5B 31px, #A67B5B 32px); line-height: 32px; padding: 8px 0;"%>
+
+    <%= form.submit "アルディアスに送る", class: "w-full py-2 bg-yellow-700 text-white rounded-md hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 transition-colors duration-300" %>
+  </div>
+<% end %>
