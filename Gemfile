@@ -81,4 +81,3 @@ end
 
 gem "sorcery", "~> 0.17.0"
 gem "sassc-rails"
-gem "sassc-rails"
