@@ -6,7 +6,7 @@ ruby "3.2.3"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+gem 'sprockets-rails', '~> 3.4'
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -34,6 +34,9 @@ gem "fog-aws"
 
 gem 'ruby-openai'
 gem 'sidekiq'
+
+gem 'rails_admin'
+gem 'cancancan'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
@@ -77,3 +80,4 @@ group :test do
 end
 
 gem "sorcery", "~> 0.17.0"
+gem 'sassc-rails', '~> 2.1'
