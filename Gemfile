@@ -35,6 +35,9 @@ gem "fog-aws"
 gem 'ruby-openai'
 gem 'sidekiq'
 
+gem 'rails_admin'
+gem 'cancancan'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -77,3 +80,5 @@ group :test do
 end
 
 gem "sorcery", "~> 0.17.0"
+gem "sassc-rails"
+gem "sassc-rails"
