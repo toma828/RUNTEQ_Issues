@@ -38,6 +38,8 @@ gem 'sidekiq'
 gem 'rails_admin'
 gem 'cancancan'
 
+gem 'meta-tags', '~> 2.22'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

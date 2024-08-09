@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>アルディアスの魔法書</title>
     <%= favicon_link_tag('AldiasAPP.ico') %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -9,6 +9,9 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <!-- SNSアップ時サムネイル GLP -->
+    <%= display_meta_tags(default_meta_tags) %>
   </head>
 
   <body>
