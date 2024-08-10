@@ -27,6 +27,11 @@ RailsAdmin.config do |config|
   config.current_user_method(&:current_user)
 
   config.authorize_with :cancancan
+  config.parent_controller = '::ApplicationController'
+
+  config.authorize_with do
+    redirect_to main_app.top_path unless current_user.admin?
+  end
 
   config.actions do
     dashboard                     # mandatory
