@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   #root "tops#index"
   root 'landing#index'
   get '/top', to: "tops#index"
+  get 'mypage', to: 'users#show'
 
   resources :users do
     member do

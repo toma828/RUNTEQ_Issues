@@ -16,8 +16,16 @@
           <li><%= link_to "Home", top_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
           <li><%= link_to "今日の日記", new_diary_path(date: Date.today), class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
           <li><%= link_to "日記一覧", diaries_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
-          <li><%= link_to "友達日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
-          <li><%= link_to "みんなの日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+
+          <!-- <li><%= link_to "友達日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+          <li><%= link_to "みんなの日記", "#", class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li> -->
+
+          <% if logged_in? %>
+            <li><%= link_to "マイページ", mypage_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
+          <% else %>
+            <%= link_to "魔法の書を開く(login)", new_session_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %>
+          <% end %>
+          
         </ul>
       </nav>
     </div>
