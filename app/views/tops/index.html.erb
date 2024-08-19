@@ -19,16 +19,32 @@
         <br>敬具
         <br>魔法書管理局
       </p>
-      <div class="mx-20 justify-center">
-          <div class="space-x-4 mt-6 border-x-2 border-black text-center">
-              <%= link_to "魔法の書を開く", new_session_path, class: "text-3xl font-bold " %>
+      <div class="mx-20 justify-center" data-controller="animation">
+        <div class="space-x-4 mt-6 border-x-2 border-black text-center">
+          <%= link_to "魔法の書を開く", new_user_path, id: "ontoucharea", class: "area text-3xl font-bold" %>
+        
+          <div class ="text-center">
+            <h1>★
+            <span
+              class="txt-rotate"
+              data-target="animation.rotate"
+              data-period="2000"
+              data-rotate='[ "ログイン" ]'></span>
+            </h1>
           </div>
-          <div class="space-x-4 mt-6 border-x-2 border-black text-center">
-          <%= link_to new_user_path, class: "text-3xl font-bold  px-4 py-2" do %>
-              本を手にする<br>
-              <span class="text-lg font-normal">(新規会員登録はこちら)</span>
-          <% end %> 
+        </div>
+        <div class="space-x-4 mt-6 border-x-2 border-black text-center">
+          <%= link_to "本を手にとる", new_session_path, id: "ontoucharea", class: "area text-3xl font-bold" %>
+          <div class ="text-center">
+            <h1>★
+            <span
+              class="txt-rotate"
+              data-target="animation.rotate"
+              data-period="2000"
+              data-rotate='[ "新規登録" ]'></span>
+        
           </div>
+        </div>
       </div>
     </div>
     <div class="md:w-2/3 mt-4 md:mt-0 flex justify-center">

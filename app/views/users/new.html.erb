@@ -25,10 +25,27 @@
     </div>
     <div>
       <%= f.label :email, "魔法の通信アドレス", class: "block text-lg mb-2" %>
+      <div class="text-color" data-controller="animation">
+        <h1>・
+          <span
+                class="txt-rotate"
+                data-target="animation.rotate"
+                data-period="2000"
+                data-rotate='[ "メールアドレス" ]'></span>
+          </h1>
+      </div>
       <%= f.email_field :email, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
     </div>
     <div>
       <%= f.label :password, "秘密の呪文", class: "block text-lg mb-2" %>
+      <div class="text-color" data-controller="animation">
+      <h1>・
+        <span
+              class="txt-rotate"
+              data-target="animation.rotate"
+              data-period="2000"
+              data-rotate='[ "パスワード" ]'></span>
+        </h1>
       <%= f.password_field :password, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
     </div>
     <div>
@@ -66,5 +83,9 @@
   .animate-fade-in-up {
     animation: fadeInUp 0.5s ease-out forwards;
     opacity: 0;
+  }
+
+  .text-color {
+    color: hsl(0, 100%, 80%); /* 淡い赤ピンク */
   }
 </style>
