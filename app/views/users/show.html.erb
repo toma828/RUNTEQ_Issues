@@ -1,4 +1,4 @@
-<div class="min-h-screen font-serif flex items-center justify-center py-12 px-4 md:px-6 lg:px-8">
+<div class=" font-serif flex items-center justify-center px-4 md:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
     <div class="rounded-lg shadow-xl overflow-hidden">
       <div class="px-4 py-5 sm:p-6">
@@ -11,6 +11,9 @@
           <p class="border-b-2 border-amber-700">
             <span class="md:text-2xl text-xl font-bold text-amber-900">魔法の連絡先:</span>
             <span class="md:text-2xl text-xl text-amber-800"><%= @user.email %></span>
+          </p>
+          <p class="mt-12 text-center">
+            <%= link_to "秘密の呪文の変更", new_password_reset_path, class: "text-purple-600 hover:underline" %>
           </p>
         </div>
       </div>

@@ -12,8 +12,17 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true
   validates :name, presence: true
 
+  validates :reset_password_token, presence: true, uniqueness: true, allow_nil: true
+
   def setup_activation
     self.activation_token = SecureRandom.urlsafe_base64
     self.activation_state = 'pending'
+  end
+
+  def deliver_reset_password_instructions!
+    # パスワードリセットのメール送信ロジックを実装
+    reset_password_email_sent_at = Time.now
+    generate_reset_password_token!
+    UserMailer.reset_password_email(self).deliver_now
   end
 end

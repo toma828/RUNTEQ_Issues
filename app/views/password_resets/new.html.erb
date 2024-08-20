@@ -1,0 +1,16 @@
+<h1 class="text-3xl">〜秘密の呪文再設定〜</h1>
+<div class="my-8">
+    <i>"ふむ...
+    <br>秘密の呪文をわすれたかな？
+    <br>もしくは何か事情があって呪文を変えたいのじゃろう
+    <br>どちらでもよいが気をつけろ、魔法の呪文は虚いやすく忘れやすい。
+    <br>しっかりと記憶しておくのじゃ"
+    <br>まずは貴殿のメールアドレスを教えてくれ</i>
+</div>
+<%= form_with url: password_resets_path do |f| %>
+    <%= f.label :魔法の通信アドレス, class: "block text-lg mb-2" %>
+    <%= f.email_field :email, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2"%>
+    <div>
+      <%= f.submit '申請', class: "bg-purple-700 text-white px-6 py-3 rounded-full hover:bg-purple-800 transition duration-300 mt-4"  %>
+    </div>
+<% end %>
