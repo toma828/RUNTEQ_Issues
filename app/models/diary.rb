@@ -2,6 +2,7 @@ class Diary < ApplicationRecord
   belongs_to :user
   mount_uploader :image, ImageUploader
   after_create :generate_chatgpt_response
+  after_create_commit :update_user_special_characters
 
   validates :content, presence: true
   validates :date, presence: true, uniqueness: { scope: :user_id }
@@ -10,5 +11,13 @@ class Diary < ApplicationRecord
 
   def generate_chatgpt_response
     ChatgptResponseJob.perform_later(id)
+  end
+
+  def update_user_special_characters
+    special_characters = []
+    content.scan(/悲しい|嬉しい|たまご|ラーメン|杖/) do |match|
+      special_characters << match
+    end
+    user.update(special_characters: (user.special_characters.to_s.split(',') + special_characters).uniq.join(','))
   end
 end

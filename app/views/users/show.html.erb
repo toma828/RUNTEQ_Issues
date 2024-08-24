@@ -15,6 +15,20 @@
           <p class="mt-12 text-center">
             <%= link_to "秘密の呪文の変更", new_password_reset_path, class: "text-purple-600 hover:underline" %>
           </p>
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold text-amber-900 mb-4">獲得した単語</h2>
+            <div class="grid grid-cols-5 gap-4">
+              <% ['悲しい', '嬉しい', 'たまご', 'ラーメン', '杖'].each do |word| %>
+                <div class="text-center">
+                  <% if @user.special_character_list.include?(word) %>
+                    <%= word %>
+                  <% else %>
+                    <span class="text-gray-300">⚫️</span>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

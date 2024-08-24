@@ -31,13 +31,7 @@ class DiariesController < ApplicationController
     if @diary.update(diary_params)
       respond_to do |format|
         format.html { redirect_to @diary, notice: '日記が更新されました。' }
-        format.json { 
-          render json: { 
-            success: true, 
-            content: @diary.content,
-            image_url: @diary.image.url # CarrierWaveの場合は.urlメソッドを使用
-          } 
-        }
+        format.json { render json: { success: true, content: @diary.content, image_url: @diary.image.url } }
       end
     else
       respond_to do |format|

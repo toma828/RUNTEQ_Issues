@@ -25,4 +25,8 @@ class User < ApplicationRecord
     generate_reset_password_token!
     UserMailer.reset_password_email(self).deliver_now
   end
+
+  def special_character_list
+    special_characters.to_s.split(',')
+  end
 end
