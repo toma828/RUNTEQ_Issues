@@ -12,6 +12,26 @@ ENV RAILS_ENV="production" \
 
 FROM base as build
 
+#テスト設定
+RUN apt-get update && apt-get install -y \
+    wget \
+    unzip \
+    libnss3 \
+    libgconf-2-4 \
+    libfontconfig1 \
+    libx11-xcb1 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libatspi2.0-0 \
+    libxshmfence1 \
+    libgtk-3-0 \
+    xdg-utils \
+    && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && dpkg -i google-chrome-stable_current_amd64.deb \
+    && apt-get -f install
+
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential curl git libpq-dev libvips node-gyp pkg-config python-is-python3
 
