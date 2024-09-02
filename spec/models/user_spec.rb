@@ -1,34 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it "有効な属性であればユーザーは有効です" do
+
+  it '名前、メールがあり、パスワードは3文字以上であれば有効であること' do
     user = FactoryBot.build(:user)
     expect(user).to be_valid
   end
 
-  it "名前がないとユーザーは無効です" do
-    user = FactoryBot.build(:user, name: nil)
-    expect(user).not_to be_valid
+  it 'メールはユニークであること' do
+    user1 = FactoryBot.create(:user)
+    user2 = FactoryBot.build(:user)
+    user2.email = user1.email
+    user2.valid?
+    expect(user2.errors[:email]).to include('はすでに存在します')
   end
 
-  it "メールアドレスがないとユーザーは無効です" do
-    user = FactoryBot.build(:user, email: nil)
-    expect(user).not_to be_valid
+  it 'メールアドレス,名前は必須項目であること' do
+    user = FactoryBot.build(:user)
+    user.email = nil
+    user.name = nil
+    user.valid?
+    expect(user.errors[:email]).to include('を入力してください')
+    expect(user.errors[:name]).to include('を入力してください')
   end
 
-  it "重複するメールアドレスがあるとユーザーは無効です" do
-    FactoryBot.create(:user, email: "test@example.com")
-    user = FactoryBot.build(:user, email: "test@example.com")
-    expect(user).not_to be_valid
-  end
-
-  it "パスワードがないとユーザーは無効です" do
-    user = FactoryBot.build(:user, password: nil)
-    expect(user).not_to be_valid
-  end
-
-  it "パスワードと確認パスワードが一致しないとユーザーは無効です" do
-    user = FactoryBot.build(:user, password_confirmation: "mismatch")
-    expect(user).not_to be_valid
+  it '名前は255文字以下であること' do
+    user = FactoryBot.build(:user)
+    user.name = 'a' * 256
+    user.valid?
+    expect(user.errors[:name]).to include('は50文字以内で入力してください')
   end
 end

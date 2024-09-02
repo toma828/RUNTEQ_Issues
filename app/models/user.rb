@@ -29,4 +29,8 @@ class User < ApplicationRecord
   def special_character_list
     special_characters.to_s.split(',')
   end
+
+  def send_activation_email
+    UserMailer.activation_needed_email(self).deliver_now
+  end
 end

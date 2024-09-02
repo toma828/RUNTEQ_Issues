@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       redirect_to top_path, notice: '確認メールを送信しました。メールを確認して登録を完了してください。'
     else
       redirect_to action: :new
-      flash[:errors] = @user.errors.full_messages
+      flash[:errors] = @user.errors.full_messages.join(", ")
     end
   end
 

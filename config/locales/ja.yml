@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: "契約者の名前"
+        password: "秘密の呪文"
+        password_confirmation: "秘密の呪文（確認）"
+        email: "魔法の通信アドレス"
+      diary:
+        content: "内容"
+    errors:
+      messages:
+        wrong_confirmation: "パスワードが確認用と一致していません。"
+        password_invalid: "パスワードは英大文字，英小文字，数字を含めて設定してください。"

@@ -20,6 +20,6 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to top_path, notice: '魔法の書からログアウトしました。'
+    redirect_to top_path, notice: '魔法の書を閉じました。'
   end
 end

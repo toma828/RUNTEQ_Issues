@@ -1,0 +1,5 @@
+<% flash.each do |key, value| %>
+  <div class="animate-flash fixed top-24 translate-x-1/2 right-6 sm:translate-x-0 z-30 w-fit max-w-[90%] sm:max-w-1/2 py-4 px-6 flex justify-center items-center bg-white shadow-lg border border-line-100 rounded-[3px] flash-message" data-controller="flash">
+    <p class="text-base font-bold <%= key == 'alert' ? 'text-secondary-200' : 'text-dark-blue-200' %> !leading-none"><%= value %></p>
+  </div>
+<% end %>

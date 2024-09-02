@@ -40,6 +40,8 @@ gem 'cancancan'
 
 gem 'meta-tags', '~> 2.22'
 
+gem 'rails-i18n'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -87,3 +89,4 @@ end
 
 gem "sorcery", "~> 0.17.0"
 gem 'sassc-rails', '~> 2.1'
+gem 'sassc', '~> 2.4'

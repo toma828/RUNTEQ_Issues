@@ -21,7 +21,13 @@ class DiariesController < ApplicationController
     if @diary.save
       redirect_to waiting_for_response_diary_path(@diary), notice: '日記が作成されました。'
     else
-      render :new
+      flash.now[:alert] = @diary.errors.full_messages.join(", ")
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('flash-messages', partial: 'shared/flash_messages')
+        end
+      end
     end
   end
 
@@ -31,16 +37,30 @@ class DiariesController < ApplicationController
     if @diary.update(diary_params)
       respond_to do |format|
         format.html { redirect_to @diary, notice: '日記が更新されました。' }
-        format.json { render json: { success: true, content: @diary.content, image_url: @diary.image.url } }
+        format.json { 
+          render json: { 
+            success: true, 
+            content: @diary.content, 
+            image_url: @diary.image.url,
+            flash: { notice: '日記が更新されました。' }
+          } 
+        }
       end
     else
       respond_to do |format|
         format.html { render :edit }
-        format.json { render json: { success: false, errors: @diary.errors.full_messages }, status: :unprocessable_entity }
+        format.json { 
+          render json: { 
+            success: false, 
+            errors: @diary.errors.full_messages,
+            flash: { alert: @diary.errors.full_messages.join(", ")}
+          }, 
+          status: :unprocessable_entity 
+        }
       end
     end
   end
-
+  
   def destroy
     @diary.destroy
     redirect_to diaries_url, notice: '日記が削除されました。'
