@@ -434,7 +434,6 @@ DEPENDENCIES
   fog-aws
   jbuilder
   jsbundling-rails
-  launchy
   letter_opener_web
   meta-tags (~> 2.22)
   pg (~> 1.1)
