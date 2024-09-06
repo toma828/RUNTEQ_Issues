@@ -16,6 +16,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - default
   web:
     build:
       context: .
@@ -34,6 +36,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - default
   redis:
     image: redis:alpine
     ports:
@@ -45,6 +49,8 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
+    networks:
+      - default
   sidekiq:
     build:
       context: .
@@ -60,9 +66,32 @@ services:
     depends_on:
       - redis
       - db
+    networks:
+      - default
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - web
+    restart: always
+    environment:
+      DOMAINS: 'localhost -> http://web:3000'
+      STAGE: 'local'
+      WEBSOCKET: 'true'
+      SSL_PORT: '443'
+    volumes:
+      - ./https-portal:/var/lib/https-portal
+    networks:
+      - default
 
 volumes:
+  https-portal-data:
   bundle_data:
   postgresql_data:
   node_modules:
   redis_data:
+networks:
+  default:
+    name: myapp_network
