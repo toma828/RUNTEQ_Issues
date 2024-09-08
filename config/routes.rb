@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get '/top', to: "tops#index"
   get 'mypage', to: 'users#show'
 
+  post "oauth/callback", to: "oauths#callback"
+  get "oauth/callback", to: "oauths#callback"
+  get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
+
   resources :users do
     member do
       get :activate
