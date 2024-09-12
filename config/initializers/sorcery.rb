@@ -224,12 +224,15 @@ Rails.application.config.sorcery.configure do |config|
   #開発環境の場合下記URLを使用,ngrok更新ごとにURLを更新
   #config.line.callback_url = 'https://6834-2400-2653-8442-b500-1177-e8e7-801-8091.ngrok-free.app/oauth/callback?provider=line'
   #本番環境の場合下記URLを使用
-  config.line.callback_url = 'https://runteqdialy-1f1f8840ec21.herokuapp.com/oauth/callback?provider=line'
-  config.line.scope = 'profile'
+  config.line.callback_url = 'https://4641-2400-2653-8442-b500-b134-4b2b-7fbd-b594.ngrok-free.app/oauth/callback?provider=line'
+  config.line.scope = 'profile openid email'
   config.line.bot_prompt = 'aggressive'
-  config.line.user_info_mapping = {name: 'displayName'}
+  config.line.user_info_mapping = {
+    name: "name",
+    email: "email",
+    line_uid: "sub"
+  }
 
-  
   # For information about Discord API
   # https://discordapp.com/developers/docs/topics/oauth2
   # config.discord.key = "xxxxxx"

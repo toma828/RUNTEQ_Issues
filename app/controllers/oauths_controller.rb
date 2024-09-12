@@ -1,22 +1,40 @@
 class OauthsController < ApplicationController
   skip_before_action :require_login
+
   def oauth
     login_at(auth_params[:provider])
   end
 
   def callback
     provider = auth_params[:provider]
-    if @user = login_from(provider)
-      redirect_to root_path, notice: "#{provider.titleize}でログインしました"
-    else
-      begin
+    begin
+      Rails.logger.info "Callback initiated for provider: #{provider}"
+      Rails.logger.info "Auth params: #{auth_params.inspect}"
+
+      @user_hash = sorcery_fetch_user_hash(provider)
+      Rails.logger.info "User Hash: #{@user_hash.inspect}"
+
+      if @user = login_from(provider)
+        Rails.logger.info "Existing user logged in: #{@user.inspect}"
+        redirect_to root_path, notice: "#{provider.titleize}でログインしました"
+      else
+        Rails.logger.info "Creating new user from provider"
         @user = create_from(provider)
-        reset_session # セッションをリセット
-        auto_login(@user) # 明示的にログイン処理を行う
-        redirect_to root_path, notice: "#{provider.titleize}でアカウントを作成しログインしました"
-      rescue
-        redirect_to root_path, alert: "#{provider.titleize}でのログインに失敗しました"
+        reset_session
+        auto_login(@user)
+        Rails.logger.info "New user created and logged in: #{@user.inspect}"
+        redirect_to root_path, notice: "#{provider.titleize}でログインしました"
       end
+    rescue OAuth2::Error => e
+      Rails.logger.error "OAuth2 Error: #{e.message}"
+      Rails.logger.error "OAuth2 Error Full Details: #{e.inspect}"
+      Rails.logger.error e.backtrace.join("\n")
+      redirect_to root_path, alert: "#{provider.titleize}でのログインに失敗しました: #{e.message}"
+    rescue => e
+      Rails.logger.error "Login Error: #{e.message}"
+      Rails.logger.error "Full Error Details: #{e.inspect}"
+      Rails.logger.error e.backtrace.join("\n")
+      redirect_to root_path, alert: "#{provider.titleize}でのログインに失敗しました"
     end
   end
 
@@ -28,12 +46,26 @@ class OauthsController < ApplicationController
 
   def create_from(provider)
     @user = build_from(provider)
-    @user.line_login = true
-    @user.email = "line_#{SecureRandom.hex(5)}@example.com"  # 仮のメールアドレス
-    @user.password = SecureRandom.urlsafe_base64
-    @user.password_confirmation = @user.password
-    @user.activation_state = 'active'  # メール認証をスキップ
-    @user.save!(validate: false)  # バリデーションをスキップ
+    @user.authentications.build(uid: @user_hash[:uid], provider: provider)
+    @user.save!
+    @user
+  end
+
+  def build_from(provider)
+    raise "Failed to fetch user info from #{provider}" if @user_hash.nil?
+  
+    Rails.logger.info "Building user from provider data: #{@user_hash.inspect}"
+  
+    password = SecureRandom.urlsafe_base64
+    @user = user_class.new(
+      name: @user_hash[:user_info]['displayName'],
+      email: @user_hash[:user_info]['email'] || "line_#{SecureRandom.hex(5)}@example.com",
+      line_login: true,
+      password: password,
+      password_confirmation: password,
+      activation_state: 'active'
+    )
+    Rails.logger.info "Built user: #{@user.inspect}"
     @user
   end
 end
