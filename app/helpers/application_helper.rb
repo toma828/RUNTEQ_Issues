@@ -27,4 +27,8 @@ module ApplicationHelper
         }
     }
     end
+
+    def line_login_user?(user)
+      user.authentications.exists?(provider: 'line')
+    end
 end

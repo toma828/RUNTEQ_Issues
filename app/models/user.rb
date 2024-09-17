@@ -5,8 +5,6 @@ class User < ApplicationRecord
   has_many :authentications, dependent: :destroy
   accepts_nested_attributes_for :authentications
 
-  attr_accessor :line_login
-
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, uniqueness: true, unless: :line_login
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
@@ -35,7 +33,23 @@ class User < ApplicationRecord
     UserMailer.activation_needed_email(self).deliver_now unless line_login
   end
 
-  def activate
-    self.line_login ? update_column(:activation_state, 'active') : super
+  def activate!
+    if line_login
+      update_column(:activation_state, 'active')
+    else
+      super
+    end
+  end
+
+  def active?
+    line_login || super
+  end
+
+  def line_login
+    authentications.exists?(provider: 'line')
+  end
+
+  def line_login=(value)
+    @line_login = value
   end
 end

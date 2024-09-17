@@ -224,7 +224,7 @@ Rails.application.config.sorcery.configure do |config|
   #開発環境の場合下記URLを使用,ngrok更新ごとにURLを更新
   #config.line.callback_url = 'https://6834-2400-2653-8442-b500-1177-e8e7-801-8091.ngrok-free.app/oauth/callback?provider=line'
   #本番環境の場合下記URLを使用
-  config.line.callback_url = 'https://4641-2400-2653-8442-b500-b134-4b2b-7fbd-b594.ngrok-free.app/oauth/callback?provider=line'
+  config.line.callback_url = 'https://9ce2-2400-2653-8442-b500-108e-2e66-70ad-32c1.ngrok-free.app/oauth/callback?provider=line'
   config.line.scope = 'profile openid email'
   config.line.bot_prompt = 'aggressive'
   config.line.user_info_mapping = {
@@ -365,7 +365,9 @@ Rails.application.config.sorcery.configure do |config|
     # manually handle how and when the email is sent.
     # Default: `false`
     #
-    # user.activation_mailer_disabled =
+    user.activation_mailer_disabled = false  # メール認証を有効にする
+    user.activation_needed_email_method_name = :activation_needed_email
+    user.activation_success_email_method_name = :activation_success_email
 
     # Method to send email related
     # options: `:deliver_later`, `:deliver_now`, `:deliver`

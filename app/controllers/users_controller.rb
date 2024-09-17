@@ -7,8 +7,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.line_login = false  # 通常のサインアップではline_loginをfalseに設定
     if @user.save
-      redirect_to top_path, notice: '確認メールを送信しました。メールを確認して登録を完了してください。'
+      redirect_to root_path, notice: '確認メールを送信しました。メールを確認して登録を完了してください。'
     else
       redirect_to action: :new
       flash[:errors] = @user.errors.full_messages.join(", ")

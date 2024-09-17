@@ -10,21 +10,21 @@ class OauthsController < ApplicationController
     begin
       Rails.logger.info "Callback initiated for provider: #{provider}"
       Rails.logger.info "Auth params: #{auth_params.inspect}"
-
+  
       @user_hash = sorcery_fetch_user_hash(provider)
       Rails.logger.info "User Hash: #{@user_hash.inspect}"
-
+  
       if @user = login_from(provider)
         Rails.logger.info "Existing user logged in: #{@user.inspect}"
-        redirect_to root_path, notice: "#{provider.titleize}でログインしました"
       else
         Rails.logger.info "Creating new user from provider"
         @user = create_from(provider)
-        reset_session
-        auto_login(@user)
-        Rails.logger.info "New user created and logged in: #{@user.inspect}"
-        redirect_to root_path, notice: "#{provider.titleize}でログインしました"
+        Rails.logger.info "New user created: #{@user.inspect}"
       end
+  
+      auto_login(@user)
+      Rails.logger.info "User logged in: #{@user.inspect}"
+      redirect_to root_path, notice: "#{provider.titleize}でログインしました"
     rescue OAuth2::Error => e
       Rails.logger.error "OAuth2 Error: #{e.message}"
       Rails.logger.error "OAuth2 Error Full Details: #{e.inspect}"
@@ -59,12 +59,13 @@ class OauthsController < ApplicationController
     password = SecureRandom.urlsafe_base64
     @user = user_class.new(
       name: @user_hash[:user_info]['displayName'],
-      email: @user_hash[:user_info]['email'] || "line_#{SecureRandom.hex(5)}@example.com",
-      line_login: true,
+      email: @user_hash[:user_info]['email'] || "line_#{SecureRandom.hex(5)}@linelogin.com",
+      line_uid: @user_hash[:uid],
       password: password,
-      password_confirmation: password,
-      activation_state: 'active'
+      password_confirmation: password
     )
+    @user.line_login = true
+    @user.activate!
     Rails.logger.info "Built user: #{@user.inspect}"
     @user
   end
