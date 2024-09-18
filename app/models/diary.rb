@@ -15,7 +15,7 @@ class Diary < ApplicationRecord
 
   def update_user_special_characters
     special_characters = []
-    content.scan(/悲しい|嬉しい|たまご|ラーメン|杖/) do |match|
+    content.scan(/猫|本|魔法|楽しい|友達/) do |match|
       special_characters << match
     end
     user.update(special_characters: (user.special_characters.to_s.split(',') + special_characters).uniq.join(','))

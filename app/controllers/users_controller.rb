@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    @unlocked_parts = @user.unlocked_image_parts
   end
 
   def activate

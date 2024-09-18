@@ -52,4 +52,12 @@ class User < ApplicationRecord
   def line_login=(value)
     @line_login = value
   end
+
+  def unlocked_image_parts
+    special_characters.to_s.split(',').uniq.count
+  end
+
+  def special_character_list
+    special_characters.to_s.split(',').uniq
+  end
 end
