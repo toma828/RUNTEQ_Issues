@@ -1,60 +1,58 @@
-<div class="font-serif flex items-center justify-center px-4 md:px-6 lg:px-8">
-  <div>
-    <div class="max-w-md w-full space-y-8">
-      <div class="rounded-lg shadow-xl overflow-hidden">
-        <div class="px-4 py-5 sm:p-6">
-          <h1 class="text-center text-4xl font-bold text-amber-800 mb-6 font-serif">情報</h1>
-          <div class="bg-amber-50 p-6 rounded-md shadow-inner">
-            <p class="mb-8 border-b-2 border-amber-700">
-              <span class="md:text-2xl text-xl font-bold text-amber-900">名前:</span>
-              <span class="md:text-2xl text-xl text-amber-800"><%= @user.name %></span>
+<div class="font-serif px-4 md:px-6 lg:px-8 py-8">
+  <div class="max-w-md mx-auto w-full space-y-8">
+    <div class="rounded-lg shadow-xl overflow-hidden">
+      <div class="px-4 py-5 sm:p-6">
+        <h1 class="text-center text-3xl md:text-4xl font-bold text-amber-800 mb-6 font-serif">情報</h1>
+        <div class="bg-amber-50 p-4 md:p-6 rounded-md shadow-inner">
+          <p class="mb-4 md:mb-8 border-b-2 border-amber-700 pb-2">
+            <span class="text-lg md:text-2xl font-bold text-amber-900">名前:</span>
+            <span class="text-lg md:text-2xl text-amber-800"><%= @user.name %></span>
+          </p>
+          <% unless line_login_user?(@user) %>
+            <p class="border-b-2 border-amber-700 pb-2">
+              <span class="text-lg md:text-2xl font-bold text-amber-900">魔法の連絡先:</span>
+              <span class="text-lg md:text-2xl text-amber-800 break-all"><%= @user.email %></span>
             </p>
-            <% unless line_login_user?(@user) %>
-              <p class="border-b-2 border-amber-700">
-                <span class="md:text-2xl text-xl font-bold text-amber-900">魔法の連絡先:</span>
-                <span class="md:text-2xl text-xl text-amber-800"><%= @user.email %></span>
-              </p>
-              <p class="mt-12 text-center">
-                <%= link_to "秘密の呪文の変更", new_password_reset_path, class: "text-purple-600 hover:underline" %>
-              </p>
-            <% end %>
-            <div class="mt-12">
-              <h2 class="text-2xl font-bold text-amber-900 mb-4">獲得した単語</h2>
-              <div class="grid grid-cols-5 gap-4">
-                <% ['猫', '本', '魔法', '楽しい', '友達'].each_with_index do |word, index| %>
-                  <div class="text-center">
-                    <% if @user.special_character_list.include?(word) %>
-                      <%= word %>
-                    <% else %>
-                      <span class="text-gray-300">⚫️</span>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
+            <p class="mt-8 text-center">
+              <%= link_to "秘密の呪文の変更", new_password_reset_path, class: "text-purple-600 hover:underline" %>
+            </p>
+          <% end %>
+          <div class="mt-8 md:mt-12">
+            <h2 class="text-xl md:text-2xl font-bold text-amber-900 mb-4">獲得した単語</h2>
+            <div class="grid grid-cols-5 gap-2 md:gap-4">
+              <% ['猫', '本', '魔法', '楽しい', '友達'].each do |word| %>
+                <div class="text-center">
+                  <% if @user.special_character_list.include?(word) %>
+                    <span class="text-sm md:text-base"><%= word %></span>
+                  <% else %>
+                    <span class="text-gray-300 text-sm md:text-base">⚫️</span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="unlock-image-container mt-2 lex items-center justify-center">
-      <% ['猫', '本', '魔法', '楽しい', '友達'].each_with_index do |word, index| %>
-        <div class="unlock-image-part" style="margin-left: <%= index * 140 %>px;">
-          <img src="<%= asset_path "unlock_image_part_#{index + 1}_gray.png" %>" alt="Gray image part <%= index + 1 %>">
-        </div>
-        <div class="unlock-image-part" style="margin-left: <%= index * 140 %>px; opacity: <%= index < @unlocked_parts ? 1 : 0 %>;">
-          <img src="<%= asset_path "unlock_image_part_#{index + 1}_color.png" %>" alt="Color image part <%= index + 1 %>">
-        </div>
-      <% end %>
-    </div>
+  </div>
+  <div class="unlock-image-container mt-8 mx-auto">
+    <% ['猫', '本', '魔法', '楽しい', '友達'].each_with_index do |word, index| %>
+      <div class="unlock-image-part unlock-image-part-<%= index %>">
+        <img src="<%= asset_path "unlock_image_part_#{index + 1}_gray.png" %>" alt="Gray image part <%= index + 1 %>">
+      </div>
+      <div class="unlock-image-part unlock-image-part-<%= index %>" style="opacity: <%= index < @unlocked_parts ? 1 : 0 %>;">
+        <img src="<%= asset_path "unlock_image_part_#{index + 1}_color.png" %>" alt="Color image part <%= index + 1 %>">
+      </div>
+    <% end %>
   </div>
 </div>
-
 
 <style>
   .unlock-image-container {
     position: relative;
     width: 700px;
     height: 450px;
+    max-width: 100%;
     overflow: hidden;
   }
   .unlock-image-part {
@@ -68,5 +66,23 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  @media (min-width: 641px) {
+    .unlock-image-part-0 { margin-left: 0px; }
+    .unlock-image-part-1 { margin-left: 140px; }
+    .unlock-image-part-2 { margin-left: 280px; }
+    .unlock-image-part-3 { margin-left: 420px; }
+    .unlock-image-part-4 { margin-left: 560px; }
+  }
+  @media (max-width: 640px) {
+    .unlock-image-container {
+      width: 100vw;
+      height: 64vw;
+    }
+    .unlock-image-part-0 { margin-left: 0vw; }
+    .unlock-image-part-1 { margin-left: 15vw; }
+    .unlock-image-part-2 { margin-left: 30vw; }
+    .unlock-image-part-3 { margin-left: 45vw; }
+    .unlock-image-part-4 { margin-left: 60vw; }
   }
 </style>
