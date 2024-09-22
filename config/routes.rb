@@ -16,6 +16,16 @@ Rails.application.routes.draw do
   get "oauth/callback" => "oauths#callback"
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
 
+  namespace :public do
+    resources :contacts, only: [:new, :create] do
+      collection do
+        post 'confirm'
+        post 'back'
+        get 'done'
+      end
+    end
+  end
+
   resources :users do
     member do
       get :activate
