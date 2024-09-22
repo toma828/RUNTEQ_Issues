@@ -7,13 +7,15 @@ class Public::ContactsController < ApplicationController
   def confirm
     @contact = Contact.new(contact_params)
     if @contact.invalid?
-      flash[:alert] = @contact.errors.full_messages.join(", ")
-      @contact = Contact.new
-      render :new
-    else
+      flash.now[:alert] = @contact.errors.full_messages.join(", ")
       respond_to do |format|
-        format.html
-        format.turbo_stream
+        format.html { render :new }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update('flash-messages', partial: 'shared/flash_messages'),
+            turbo_stream.update('contact_form', partial: 'form', locals: { contact: @contact })
+          ]
+        end
       end
     end
   end
@@ -27,11 +29,18 @@ class Public::ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
     if @contact.save
       ContactMailer.send_mail(@contact).deliver_now
-      redirect_to done_public_contacts_path
+      redirect_to done_public_contacts_path, notice: 'お問い合わせが送信されました。'
     else
-      flash[:alert] = @contact.errors.full_messages.join(", ")
-      @contact = Contact.new
-      render :new
+      flash.now[:alert] = @contact.errors.full_messages.join(", ")
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update('flash-messages', partial: 'shared/flash_messages'),
+            turbo_stream.update('contact_form', partial: 'form', locals: { contact: @contact })
+          ]
+        end
+      end
     end
   end
 

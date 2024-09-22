@@ -23,7 +23,7 @@
           <% if logged_in? %>
             <li><%= link_to "マイページ", mypage_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %></li>
           <% else %>
-            <%= link_to "魔法の書を開く(login)", new_session_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %>
+            <%= link_to "ログイン", new_session_path, class: "text-2xl border-r border-black pr-4 hover:underline hover:text-light-red transition duration-300" %>
           <% end %>
           
         </ul>
