@@ -1,0 +1,19 @@
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+  async function main() {
+    // LIFFを初期化
+    await liff.init({ liffId: Rails.application.credentials.dig(:line, :liff_id) });
+
+    if (liff.isLoggedIn()) {
+      // ログイン済みの場合、top画面に遷移
+      liff.closeWindow();
+      window.location.replace('/top');
+    } else {
+      // ログインしていない場合、LIFFのログイン処理を行う
+      await liff.login();
+      liff.closeWindow();
+      window.location.replace('/top');
+    }
+  }
+  main();
+</script>

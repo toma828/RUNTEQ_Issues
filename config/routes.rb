@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get '/terms', to: 'terms#terms'
 
+  get 'liff', to: 'pages#liff'
+
   namespace :public do
     resources :contacts, only: [:new, :create] do
       collection do
