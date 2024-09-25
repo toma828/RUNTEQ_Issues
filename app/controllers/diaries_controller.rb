@@ -88,6 +88,20 @@ class DiariesController < ApplicationController
     end
   end
 
+  def create_from_line
+    user = User.find_by(line_uid: params[:line_uid])
+    if user
+      @diary = user.diaries.build(content: params[:content], date: Date.today)
+      if @diary.save
+        render json: { success: true, message: '日記が作成されました。' }, status: :created
+      else
+        render json: { success: false, errors: @diary.errors.full_messages }, status: :unprocessable_entity
+      end
+    else
+      render json: { success: false, message: 'ユーザーが見つかりません。' }, status: :not_found
+    end
+  end
+
   private
 
   def set_diary

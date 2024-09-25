@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   get 'liff', to: 'pages#liff'
 
+  post '/line_webhook', to: 'line_bot#callback'
+  post '/diaries/create_from_line', to: 'diaries#create_from_line'
+  
   namespace :public do
     resources :contacts, only: [:new, :create] do
       collection do
