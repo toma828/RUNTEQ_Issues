@@ -1,43 +1,136 @@
-  <article class="font-serif p-5 text-black">
-    <h2 class="text-5xl font-bold mb-5">The old wizard Aldias sealed in a book.</h2>
-    
-    <div class="flex flex-col md:flex-row items-start">
-      <div class="md:w-1/3 pr-4">
-        <p class="text-lg leading-relaxed">
-          親愛なる魔法使いの皆様へ、
-
-          この手紙と共に、かつての魔法学院の教授アルディアスが封印された特別な本をお届けいたします。アルディアス教授は魔法の実験の失敗により、自身を一冊の本に封じ込めるという前代未聞の事態に遭遇しました。
-
-          しかし、驚くべきことに、アルディアス教授の精神は本の中で生き続けており、特別な魔法使いである皆様との交流が可能なのです。この本は、教授が開発した「知識の収穫」と呼ばれる古代魔法を実践する機会を提供します。
-
-          皆様にお願いしたいのは、この本に日々の冒険や学びを記録していただくことです。そうすることで、アルディアス教授の知識が再び成長し、魔法界に新たな叡智をもたらす可能性があるのです。
-
-          この貴重な機会を活かし、魔法の発展に貢献していただけることを心より願っております。
-
-          敬具
-          魔法書管理局
-        </p>
-        <div class="mx-20 justify-center">
-            <div class="space-x-4 mt-6 border-x-2 border-black text-center">
-                <%= link_to "魔法の書を開く", new_session_path, class: "text-3xl font-bold " %>
-            </div>
-            <div class="space-x-4 mt-6 border-x-2 border-black text-center">
-            <%= link_to new_user_path, class: "text-3xl font-bold  px-4 py-2" do %>
-                本を手にする<br>
-                <span class="text-lg font-normal">(新規会員登録はこちら)</span>
-            <% end %> 
-            </div>
-        </div>
-      </div>
-      <div class="md:w-2/3 mt-4 md:mt-0 flex justify-center">
-        <%= image_tag "top_book.png", alt: "魔法書", class: "w-1/2 h-auto rounded-lg shadow-md" %>
-      </div>
-    </div>
-
-    <div class="border border-black p-3 my-5">
-      <h3 class="text-2xl mb-2">注意事項</h3>
-      <p class="text-base">
-        この本は強力な魔法が封印されているため、取り扱いには十分ご注意ください。不適切な使用は、魔法界の秩序を乱す可能性があります。ご不明な点がございましたら、いつでも魔法書管理局までお問い合わせください。
+<article class="font-serif p-5 text-black animate-fade-in-up">
+  <h2 class="md:text-5xl text-3xl font-bold mb-5">The old wizard Aldias sealed in a book.</h2>
+  
+  <div class="flex flex-col md:flex-row items-start justify-center">
+    <div class="md:w-2/3 pr-4">
+      <p class="text-lg leading-relaxed">
+        "知識とは経験である。"
+        <p class="text-right">--アルディアス</p>
+        <br>"この言葉は、200年前とある魔法学校の教授であったアルディアスが提唱した言葉である。
+        <br>彼が求めたのはこの世の全ての知識であった。
+        しかし彼はあまりにも知識を獲すぎたために、悪の魔法使いたちに命を狙われることになる。
+        そこで彼は、自身の精神・知識を複数の本の中に封印し誰にも見つからないところにそれらをばらばらに隠したのであった。
+        この本はそのアルディアスの魔法書の1つである。
+        貴殿には、この本を使用しアルディアスにさらなる知識を提供していただきたい。
+        なに、難しいことはない。ただ日々の日記をつければいいだけである。
+        アルディアスは貴殿の経験から知識を獲ながら、さらなる進化を遂げるであろう。
+        この魔法書を手に取り、さらなる魔法の発展に協力してくれることを切に願う。"
+        <br>
+        <br>敬具
+        <br>魔法書管理局
       </p>
     </div>
-  </article>
+    <div class="md:w-1/3 mt-4 md:mt-0 flex right-4">
+      <%= image_tag "top_book.png", alt: "魔法書", class: "h-80 rounded-lg shadow-md" %>
+    </div>
+  </div>
+  <br>
+  <% if !logged_in? %>
+    <div class="justify-center" data-controller="animation">
+      <div class="space-x-4 mt-6 border-x-2 border-black text-center hover:text-light-red">
+        <%= link_to "魔法の書を開く", new_session_path, id: "ontoucharea", class: "area text-3xl font-bold" %>
+        <div class ="text-center">
+          <h1>★
+          <span
+            class="txt-rotate"
+            data-target="animation.rotate"
+            data-period="2000"
+            data-rotate='[ "ログイン" ]'></span>
+          </h1>
+          </div>
+      </div>
+      <div class="space-x-4 mt-6 border-x-2 border-black text-center hover:text-light-red">
+        <%= link_to "本を手にとる", new_user_path, id: "ontoucharea", class: "area text-3xl font-bold" %>
+        <div class ="text-center">
+          <h1>★
+          <span
+            class="txt-rotate"
+            data-target="animation.rotate"
+            data-period="2000"
+            data-rotate='[ "新規登録" ]'></span>
+      
+        </div>
+      </div>
+      <div class="flex items-center justify-center space-x-4 mt-6 border-x-2 border-black hover:text-light-red">
+        <%= link_to auth_at_provider_path(provider: :line), class: "flex items-center space-x-4" do %>
+          <div class="relative w-24 h-24">
+            <%= image_tag "btn_base.png", alt: "ラインログインボタン", class: "w-full h-full object-cover transition-opacity duration-300 ease-in-out" %>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold">ラインログイン</div>
+            <div>ラインで簡単ログイン</div>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <br>
+        <div class="text-sm">※ラインログインを利用することで、LINEアカウントに関連する情報が当サービスに共有されます。
+        <br>共有される情報には、基本的なプロフィール情報が含まれる場合がありますが、これらの情報を厳重に管理し、
+        <br>プライバシーを保護します。
+        </div>
+      </div>
+    </div>
+  <% else %>
+  <div class="text-center my-12">
+    <%= link_to '"今日の日記を書く"',new_diary_path(date: Date.today),class: "md:text-3xl text-xl relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-left after:scale-x-100 after:bg-neutral-800 after:transition-transform after:duration-150 after:ease-in-out hover:after:origin-bottom-right hover:after:scale-x-0" %>
+  </div>
+  <div class="py-12 border-t border-black">
+    <div class="flex flex-col md:flex-row items-center justify-center h-full">
+      <h2 class="md:text-5xl text-3xl font-bold mr-16">ABOUT</h2>
+      <div>
+        この魔導書はあなたが記載した日々の記録に
+        <br>アルディアスが返信してくれる日記書です。
+        <br>アルディアスは新たな知識を欲し、
+        <br>あなたの日記から知識をまとめてくれます。
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col md:flex-row items-center justify-center h-full">
+    <%= image_tag "writing.png", alt: "魔法書", class: "xl:pl-32 xl:mr-32 md:pl-16 md:mr-16 h-36"%>
+    <div>
+      三日坊主の日記？
+      <br>一人じゃ寂しい？
+      <br>大勢の人に見られるってなると完璧をもとめて投稿できなくなる？
+      <br>アルディアスとなら大丈夫。
+      <br>あなたの日記をサポートしてくれます。
+    </div>
+  </div>
+  <div class="py-12 flex flex-col md:flex-row items-center justify-center h-full">
+    <%= image_tag "Pazzlu.png", alt: "魔法書", class: "xl:pl-64 xl:mr-32 md:pl-16 md:mr-16 h-36"%>
+    <div>
+      パズルも揃えて！
+      <br>あなたのマイページにパズルを用意しました。
+      <br>あなたの日記の中に特定のキーワードが入っていればパズルは埋まっていきます。
+      <br>キーワドは全部で５種類
+      <br>まずはある動物を書いてみて。
+      <br>ヒント：漢字の🐈
+    </div>
+  </div>
+  <!-- if !logged_in? のend-->
+  <% end %>
+
+  <div class="border border-black p-3 my-5">
+    <h3 class="text-2xl mb-2">注意事項</h3>
+    <p class="text-base">
+      この本は強力な魔法が封印されているため、取り扱いには十分ご注意ください。不適切な使用は、魔法界の秩序を乱す可能性があります。ご不明な点がございましたら、いつでも魔法書管理局までお問い合わせください。
+    </p>
+  </div>
+</article>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+</style>

@@ -4,7 +4,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = [:user_activation]
+Rails.application.config.sorcery.submodules = [:reset_password, :user_activation, :external]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -80,7 +80,7 @@ Rails.application.config.sorcery.configure do |config|
   # i.e. [:twitter, :facebook, :github, :linkedin, :xing, :google, :liveid, :salesforce, :slack, :line].
   # Default: `[]`
   #
-  # config.external_providers =
+  config.external_providers = %i[line]
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -219,14 +219,21 @@ Rails.application.config.sorcery.configure do |config|
   # config.salesforce.scope = "full"
   # config.salesforce.user_info_mapping = {:email => "email"}
 
-  # config.line.key = ""
-  # config.line.secret = ""
-  # config.line.callback_url = "http://mydomain.com:3000/oauth/callback?provider=line"
-  # config.line.scope = "profile"
-  # config.line.bot_prompt = "normal"
-  # config.line.user_info_mapping = {name: 'displayName'}
+  config.line.key = Rails.application.credentials.dig(:line, :channel_id)
+  config.line.secret = Rails.application.credentials.dig(:line, :channel_secret)
+  #開発環境の場合下記URLを使用,ngrok更新ごとにURLを更新
+  config.line.callback_url = 'https://9ce2-2400-2653-8442-b500-108e-2e66-70ad-32c1.ngrok-free.app/oauth/callback?provider=line'
+  #本番環境の場合下記URLを使用
+  #config.line.callback_url = 'https://runteqdialy-1f1f8840ec21.herokuapp.com/oauth/callback?provider=line'
+  #config.line.callback_url = 'https://www.crimoire-of-aldias.com/oauth/callback?provider=line'
+  config.line.scope = 'profile openid email'
+  config.line.bot_prompt = 'aggressive'
+  config.line.user_info_mapping = {
+    name: "name",
+    email: "email",
+    line_uid: "sub"
+  }
 
-  
   # For information about Discord API
   # https://discordapp.com/developers/docs/topics/oauth2
   # config.discord.key = "xxxxxx"
@@ -359,7 +366,9 @@ Rails.application.config.sorcery.configure do |config|
     # manually handle how and when the email is sent.
     # Default: `false`
     #
-    # user.activation_mailer_disabled =
+    user.activation_mailer_disabled = false  # メール認証を有効にする
+    user.activation_needed_email_method_name = :activation_needed_email
+    user.activation_success_email_method_name = :activation_success_email
 
     # Method to send email related
     # options: `:deliver_later`, `:deliver_now`, `:deliver`
@@ -543,7 +552,7 @@ Rails.application.config.sorcery.configure do |config|
     # Class which holds the various external provider data for this user.
     # Default: `nil`
     #
-    # user.authentications_class =
+    user.authentications_class = Authentication
 
     # User's identifier in the `authentications` class.
     # Default: `:user_id`
@@ -567,6 +576,8 @@ Rails.application.config.sorcery.configure do |config|
     user.activation_needed_email_method_name = :activation_needed_email
     user.activation_success_email_method_name = :activation_success_email
     user.prevent_non_active_users_to_login = true
+
+    user.reset_password_mailer = UserMailer
   end
 
   # This line must come after the 'user config' block.

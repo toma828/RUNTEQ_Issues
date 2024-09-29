@@ -1,4 +1,4 @@
-<div class="mx-24 font-serif border border-black p-5 text-black">
+<div class="md:mx-24 font-serif border border-black p-5 text-black">
   <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
     <h2 class="text-5xl font-bold mb-5">魔法の書にログイン</h2>
   </div>  
@@ -20,8 +20,21 @@
       </div>
     <% end %>
 
-    <div class="mt-4">
-      <%= link_to "新しく魔法使いになる方はこちら", new_user_path, class: "text-blue-600 hover:underline" %>
+    <div class="mt-4 mt-8">
+      <%= link_to "新しく魔法使いになる方はこちら", new_user_path, class: "text-blue-600 hover:underline border-r border-black" %>
+      <%= link_to "秘密の呪文を忘れた方はこちら", new_password_reset_path, class: "text-purple-600 hover:underline" %>
+    </div>
+
+    <div class="flex space-x-4 mt-6 hover:text-light-red">
+      <%= link_to auth_at_provider_path(provider: :line), class: "flex items-center space-x-4" do %>
+        <div class="relative md:w-24 w-12 md:h-24 h-12">
+          <%= image_tag "btn_base.png", alt: "ラインログインボタン", class: "w-full h-full object-cover transition-opacity duration-300 ease-in-out" %>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold">ラインログインはこちらから</div>
+          <div>ラインで簡単ログイン</div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

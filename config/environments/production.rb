@@ -27,7 +27,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -96,16 +96,20 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  config.action_mailer.default_url_options = { host: 'runteqdialy-1f1f8840ec21.herokuapp.com' }
+  #config.action_mailer.default_url_options = { host: 'runteqdialy-1f1f8840ec21.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'crimoire-of-aldias.com' }
+  config.action_controller.default_url_options = { host: 'www.crimoire-of-aldias.com' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'herokuapp.com',
-    user_name:            ENV['GMAIL_USERNAME'],
-    password:             ENV['GMAIL_PASSWORD'],
-    authentication:       'plain',
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'example.com',
+    user_name: Rails.application.credentials.dig(:mail, :mail_address),
+    password:  Rails.application.credentials.dig(:mail, :mail_password),
+    authentication: 'plain',
     enable_starttls_auto: true
   }
+
+  config.assets.css_compressor = nil
 end

@@ -1,8 +1,8 @@
-<div class="mx-24 font-serif p-5 space-y-8 text-black">
-  <h2 class="text-5xl font-bold mb-5 animate-fade-in-up">魔法の書契約</h2>
+<div class="md:mx-24 font-serif p-5 space-y-8 text-black">
+  <h2 class="md:text-5xl text-3xl font-bold mb-5 animate-fade-in-up">魔法の書契約</h2>
 
   <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
-    <h3 class="text-2xl font-semibold mb-3">アルディアスからの言付け</h3>
+    <h3 class="md:text-2xl text-xl font-semibold mb-3">アルディアスからの言付け</h3>
     <p class="mb-4 italic text-gray-700">
       "若き魔法使いよ、ワシはアルディアス。この魔法の書に封じられし老魔導士じゃ。
       知識を求める君の魂に、ワシは喜んで導きの手を差し伸べよう。
@@ -25,10 +25,27 @@
     </div>
     <div>
       <%= f.label :email, "魔法の通信アドレス", class: "block text-lg mb-2" %>
+      <div class="text-color" data-controller="animation">
+        <h1>・
+          <span
+                class="txt-rotate"
+                data-target="animation.rotate"
+                data-period="2000"
+                data-rotate='[ "メールアドレス" ]'></span>
+          </h1>
+      </div>
       <%= f.email_field :email, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
     </div>
     <div>
       <%= f.label :password, "秘密の呪文", class: "block text-lg mb-2" %>
+      <div class="text-color" data-controller="animation">
+      <h1>・
+        <span
+              class="txt-rotate"
+              data-target="animation.rotate"
+              data-period="2000"
+              data-rotate='[ "パスワード" ]'></span>
+        </h1>
       <%= f.password_field :password, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
     </div>
     <div>
@@ -66,5 +83,9 @@
   .animate-fade-in-up {
     animation: fadeInUp 0.5s ease-out forwards;
     opacity: 0;
+  }
+
+  .text-color {
+    color: hsl(0, 100%, 80%); /* 淡い赤ピンク */
   }
 </style>

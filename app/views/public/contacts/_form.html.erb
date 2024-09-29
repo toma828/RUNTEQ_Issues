@@ -1,0 +1,25 @@
+<%= form_with model: [:public, contact], url: confirm_public_contacts_path, local: false do |f| %>
+    <div class="form-group mt-4">
+      <%= f.label :name, 'お名前' %>
+      <%= f.text_field :name, autofocus: true, class: 'w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2 form-control' %>
+    </div>
+    
+    <div class="form-group mt-4">
+      <%= f.label :email, 'メールアドレス' %>
+      <%= f.email_field :email, class: 'w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2 form-control' %>
+    </div>
+  
+    <div class="form-group mt-4">
+      <%= f.label :subject, '件名' %>
+      <%= f.text_field :subject, class: 'w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2 form-control' %>
+    </div>
+  
+    <div class="form-group mt-4">
+      <%= f.label :message, 'メッセージ' %>
+      <%= f.text_area :message, size: '10x10', class: 'w-full bg-transparent border-2 border-gray-400 focus:border-purple-500 outline-none p-2 form-control' %>
+    </div>
+  
+    <div>
+      <%= f.submit '入力内容確認', class: "mt-2 btn btn-outline-info bg-white" %>
+    </div>
+<% end %>

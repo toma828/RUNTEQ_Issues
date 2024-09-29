@@ -1460,14 +1460,14 @@ html {
   border-end-end-radius: inherit;
 }
 
-@supports not selector(:has(*)) {
-  :where(.join *) {
+@supports not (selector(:has(*))) {
+  .join * {
     border-radius: inherit;
   }
 }
 
-@supports selector(:has(*)) {
-  :where(.join *:has(.join-item)) {
+@supports (selector(:has(*))) {
+  .join *:has(.join-item) {
     border-radius: inherit;
   }
 }
@@ -3762,4 +3762,13 @@ details.collapse summary::-webkit-details-marker {
 
 .animate-fade-in {
   animation: fadeIn 20s ease-in forwards; /* Duration変更: 2s */
+}
+
+@keyframes flashFade {
+  0%, 100% { opacity: 0; transform: translateY(-100%); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-flash {
+  animation: flashFade 3s ease-in-out;
 }

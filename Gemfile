@@ -6,7 +6,7 @@ ruby "3.2.3"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+gem 'sprockets-rails', '~> 3.4'
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -38,6 +38,15 @@ gem 'sidekiq'
 gem 'rails_admin'
 gem 'cancancan'
 
+gem 'meta-tags', '~> 2.22'
+
+gem 'rails-i18n'
+
+gem 'omniauth-auth0'
+gem 'omniauth-line'
+gem 'omniauth-rails_csrf_protection'
+
+gem 'line-bot-api'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -71,6 +80,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'factory_bot_rails'
 end
 
 group :test do
@@ -80,4 +92,6 @@ group :test do
 end
 
 gem "sorcery", "~> 0.17.0"
-gem "sassc-rails"
+
+gem 'sassc-rails', '~> 2.1'
+gem 'sassc', '~> 2.4'

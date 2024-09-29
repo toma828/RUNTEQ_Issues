@@ -1,6 +1,9 @@
-<div class="max-w-4xl mx-auto my-8 font-serif">
+<div class="max-w-xl md:max-w-4xl md:mx-auto my-8 font-serif">
   <div class="flex justify-between items-center mb-6 text-amber-900">
-    <%= link_to '< 前の週', diaries_path(selected_date: @start_date - 1.week), class: "hover:text-amber-700 transition duration-300 text-xl" %>
+    <!-- 前の週リンク -->
+    <%= link_to '前', diaries_path(selected_date: @start_date - 1.week), class: "md:hidden block hover:text-amber-700 transition duration-300 text-xl" %>
+    <%= link_to '前の週', diaries_path(selected_date: @start_date - 1.week), class: "md:block hidden hover:text-amber-700 transition duration-300 text-xl" %>
+    
     <div class="flex items-center" data-controller="calendar">
       <select data-calendar-target="year" data-action="change->calendar#updateDays" class="bg-transparent border-b-2 border-amber-900 focus:outline-none focus:border-amber-700 text-center text-xl">
         <% (Date.today.year-10..Date.today.year+10).each do |year| %>
@@ -21,16 +24,19 @@
         移動
       </button>
     </div>
-    <%= link_to '次の週 >', diaries_path(selected_date: @start_date + 1.week), class: "hover:text-amber-700 transition duration-300 text-xl" %>
+    
+    <!-- 次の週リンク -->
+    <%= link_to '次', diaries_path(selected_date: @start_date + 1.week), class: "md:hidden block hover:text-amber-700 transition duration-300 text-xl" %>  <!-- スマホ -->
+    <%= link_to '次の週', diaries_path(selected_date: @start_date + 1.week), class: "md:block hidden hover:text-amber-700 transition duration-300 text-xl" %>
   </div>
-
   <div class="space-y-6">
     <% (@start_date..@end_date).each do |date| %>
       <div class="border-b-2 border-amber-900 pb-4">
         <% if @diaries[date] %>
           <%= link_to diary_path(@diaries[date]), class: "block hover:bg-amber-100 transition duration-300 mt-12" do %>
             <div class="flex justify-between items-center">
-              <span class="text-3xl font-semibold text-amber-900"><%= date.strftime('%a : %Y/%m/%d') %></span>
+              <span class="md:hidden block text-2xl font-semibold text-amber-900"><%= date.strftime('%a : %m/%d') %></span>  <!-- スマホ -->
+              <span class="md:block hidden text-3xl font-semibold text-amber-900"><%= date.strftime('%A : %Y/%m/%d') %></span>
               <span class="text-amber-700 hover:text-amber-900 transition duration-300">日記を見る</span>
             </div>
             <% if @diaries[date].image.present? %>
@@ -45,7 +51,8 @@
         <% else %>
           <%= link_to new_diary_path(date: date), class: "block hover:bg-amber-100 transition duration-300 mt-8" do %>
             <div class="flex justify-between items-center">
-              <span class="text-3xl font-semibold text-amber-900"><%= date.strftime('%a : %Y/%m/%d') %></span>
+              <span class="md:hidden block text-3xl font-semibold text-amber-900"><%= date.strftime('%a : %m/%d') %></span>
+              <span class="md:block hidden text-3xl font-semibold text-amber-900"><%= date.strftime('%A : %Y/%m/%d') %></span>
               <span class="text-green-700 hover:text-green-900 transition duration-300">日記を書く</span>
             </div>
           <% end %>

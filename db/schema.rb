@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_06_155745) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_19_173338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
+  end
 
   create_table "chatgpt_responses", force: :cascade do |t|
     t.text "content"
@@ -20,6 +29,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_155745) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["diary_id"], name: "index_chatgpt_responses_on_diary_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "subject", null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "diaries", force: :cascade do |t|
@@ -32,6 +50,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_155745) do
     t.string "image"
     t.json "layout"
     t.json "images"
+    t.string "content_animations"
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 
@@ -47,7 +66,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_155745) do
     t.string "activation_token"
     t.datetime "activation_token_expires_at"
     t.boolean "admin"
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
+    t.integer "access_count_to_reset_password_page", default: 0
+    t.string "special_characters"
+    t.string "line_uid"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["line_uid"], name: "index_users_on_line_uid", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "chatgpt_responses", "diaries"

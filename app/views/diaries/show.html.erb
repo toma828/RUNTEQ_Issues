@@ -12,7 +12,7 @@
     <% end %>
 
     <div class="font-serif text-amber-900">
-      <h2 data-diary-editor-target="contentLabel" class= "text-2xl font-serif mb-2 py-2 border-b-2 border-amber-900">内容：</h2>
+      <h2 data-diary-editor-target="contentLabel" class="text-2xl font-serif mb-2 py-2 border-b-2 border-amber-900">内容：</h2>
       <div class="bg-transparent px-4 py-5">
         <p data-diary-editor-target="content" class="mt-2 whitespace-pre-wrap text-black diary-content-lines">
           <%= @diary.content %>
@@ -34,7 +34,7 @@
         <button type="button" data-action="click->diary-editor#removeImage" class="px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300">画像を削除</button>
         <%= form.submit "更新", class: "px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300" %>
         <button data-diary-editor-target="cancelButton" data-action="click->diary-editor#cancelEdit" class="px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300 hidden">
-          キャンセル
+          編集モード終了
         </button>
       </div>
     <% end %>
@@ -55,7 +55,7 @@
 
   <div class="mt-8 flex justify-between items-center">
     <div>
-      <%= link_to '戻る', diaries_path, class: "px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300" %>
+      <%= link_to '戻る', diaries_path, data: {action: "click->diary-editor#cancelEdit"}, class: "px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300" %>
       <%= link_to '編集', '#', data: { diary_editor_target: "editLink", action: "click->diary-editor#startEdit" }, class: "ml-2 px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300" %>
     </div>
     <%= link_to '削除', diary_path(@diary), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300" %>

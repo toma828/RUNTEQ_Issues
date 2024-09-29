@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>アルディアスの魔法書</title>
+    <%= favicon_link_tag('AldiasAPP.ico') %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <!-- SNSアップ時サムネイル GLP -->
+    <%= display_meta_tags(default_meta_tags) %>
   </head>
 
   <body>
-    <% flash.each do |type, message| %>
-      <div class="flash <%= type %> mx-24 my-4 p-4 bg-blue-100 border border-blue-500 text-blue-700">
-          <%= message %>
-      </div>
-    <% end %>
+    <div id="flash-messages">
+      <%= render 'shared/flash_messages' %>
+    </div>
     <%= render 'shared/header' %>
     <main class="relative bg-main-bg bg-center bg-cover object-cover">
-      <div class="mx-24 p-8 text-black" style="min-height: 650px; position: relative;">
+      <div class="md:mx-24 p-8 text-black" style="min-height: 650px; position: relative;">
         <%= yield %>
       </div>
     </main>
