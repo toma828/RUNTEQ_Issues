@@ -222,7 +222,7 @@ Rails.application.config.sorcery.configure do |config|
   config.line.key = Rails.application.credentials.dig(:line, :channel_id)
   config.line.secret = Rails.application.credentials.dig(:line, :channel_secret)
   #開発環境の場合下記URLを使用,ngrok更新ごとにURLを更新
-  config.line.callback_url = 'https://9ce2-2400-2653-8442-b500-108e-2e66-70ad-32c1.ngrok-free.app/oauth/callback?provider=line'
+  config.line.callback_url = 'https://921c-2400-2653-8442-b500-643e-cb68-2f1f-1f96.ngrok-free.app/oauth/callback?provider=line'
   #本番環境の場合下記URLを使用
   #config.line.callback_url = 'https://runteqdialy-1f1f8840ec21.herokuapp.com/oauth/callback?provider=line'
   #config.line.callback_url = 'https://www.crimoire-of-aldias.com/oauth/callback?provider=line'
