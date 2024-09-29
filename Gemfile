@@ -47,7 +47,6 @@ gem 'omniauth-line'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'line-bot-api'
-
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -93,5 +92,6 @@ group :test do
 end
 
 gem "sorcery", "~> 0.17.0"
+
 gem 'sassc-rails', '~> 2.1'
 gem 'sassc', '~> 2.4'
