@@ -1,0 +1,15 @@
+<div data-controller="waiting-response" data-waiting-response-diary-id-value="<%= @diary.id %>" class="mx-24">
+  <div data-waiting-response-target="waiting" class="waiting-content">
+    <h1 class="text-2xl mb-4">おお、急がば回れじゃ。しばし待たれよ。</h1>
+    <p class="mb-4">わしの老いた手で、古の魔法書をめくりながら、汝の問いに対する答えを紡いでおる。魔法の力は拙速を好まぬ。じっくりと待つのじゃ。</p>
+    <p data-waiting-response-target="status" class="text-lg font-bold">現在アルディアスが返答を記載中</p>
+  </div>
+
+  <div data-waiting-response-target="response" class="response-content" style="display: none;">
+    <!-- アルディアスの返答の表示 -->
+  </div>
+
+  <div data-waiting-response-target="link" class="link-content" style="display: none;">
+    <%= link_to '日記詳細を見る', diary_path(@diary), class: "mt-4 inline-block px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300" %>
+  </div>
+</div>

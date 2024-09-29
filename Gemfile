@@ -29,6 +29,15 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem "carrierwave"
+gem "fog-aws"
+
+gem 'ruby-openai'
+gem 'sidekiq'
+
+gem 'rails_admin'
+gem 'cancancan'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -50,6 +59,7 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'letter_opener_web'
 end
 
 group :development do
@@ -68,3 +78,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "sorcery", "~> 0.17.0"
+gem "sassc-rails"

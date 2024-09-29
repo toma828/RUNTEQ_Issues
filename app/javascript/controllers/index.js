@@ -4,5 +4,20 @@
 
 import { application } from "./application"
 
+import CalendarController from "./calendar_controller"
+application.register("calendar", CalendarController)
+
+import DiaryEditorController from "./diary_editor_controller"
+application.register("diary-editor", DiaryEditorController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ImagePreviewController from "./image_preview_controller"
+application.register("image-preview", ImagePreviewController)
+
+import MessageController from "./message_controller"
+application.register("message", MessageController)
+
+import WaitingResponseController from "./waiting_response_controller"
+application.register("waiting-response", WaitingResponseController)

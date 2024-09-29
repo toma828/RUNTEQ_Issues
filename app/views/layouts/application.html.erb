@@ -11,9 +11,16 @@
   </head>
 
   <body>
+    <% flash.each do |type, message| %>
+      <div class="flash <%= type %> mx-24 my-4 p-4 bg-blue-100 border border-blue-500 text-blue-700">
+          <%= message %>
+      </div>
+    <% end %>
     <%= render 'shared/header' %>
     <main class="relative bg-main-bg bg-center bg-cover object-cover">
-      <%= yield %>
+      <div class="mx-24 p-8 text-black" style="min-height: 650px; position: relative;">
+        <%= yield %>
+      </div>
     </main>
     <%= render 'shared/footer' %>
   </body>

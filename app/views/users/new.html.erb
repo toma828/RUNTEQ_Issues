@@ -1,0 +1,70 @@
+<div class="mx-24 font-serif p-5 space-y-8 text-black">
+  <h2 class="text-5xl font-bold mb-5 animate-fade-in-up">魔法の書契約</h2>
+
+  <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+    <h3 class="text-2xl font-semibold mb-3">アルディアスからの言付け</h3>
+    <p class="mb-4 italic text-gray-700">
+      "若き魔法使いよ、ワシはアルディアス。この魔法の書に封じられし老魔導士じゃ。
+      知識を求める君の魂に、ワシは喜んで導きの手を差し伸べよう。
+      されど、魔法の力は両刃の剣。慎重に、そして賢明に扱わねばならぬ。
+      以下の契約を心に刻み、魔法の道を歩む覚悟はあるかね？"
+    </p>
+    <ol class="list-decimal list-inside space-y-2 text-gray-800">
+      <li>この書に記された秘術は、善なる目的にのみ用いること。</li>
+      <li>日々研鑽を積み、魔法の真髄を探求し続けること。</li>
+      <li>魔法の秘密を守り、みだりに他言せぬこと。</li>
+      <li>困難に直面せし時も、諦めることなく前進し続けること。</li>
+      <li>この契約は、汝の魔法の旅路が終わるまで効力を持つものなり。</li>
+    </ol>
+  </div>
+
+  <%= form_with(model: @user, local: true, class: "space-y-8 animate-fade-in-up", style: "animation-delay: 0.4s;") do |f| %>
+    <div>
+      <%= f.label :name, "契約者の名前", class: "block text-lg mb-2" %>
+      <%= f.text_field :name, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
+    </div>
+    <div>
+      <%= f.label :email, "魔法の通信アドレス", class: "block text-lg mb-2" %>
+      <%= f.email_field :email, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
+    </div>
+    <div>
+      <%= f.label :password, "秘密の呪文", class: "block text-lg mb-2" %>
+      <%= f.password_field :password, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
+    </div>
+    <div>
+      <%= f.label :password_confirmation, "秘密の呪文（確認）", class: "block text-lg mb-2" %>
+      <%= f.password_field :password_confirmation, class: "w-full bg-transparent border-b-2 border-gray-400 focus:border-purple-500 outline-none p-2" %>
+    </div>
+    
+    <div class="flex items-center space-x-2 mt-4">
+      <%= f.check_box :terms_accepted, class: "form-checkbox h-5 w-5 text-purple-600", required: true %>
+      <span class="text-sm">上記の契約条項を読み、同意します。</span>
+    </div>
+
+    <div>
+      <%= f.submit "魔法の書を受け取る", class: "bg-purple-700 text-white px-6 py-3 rounded-full hover:bg-purple-800 transition duration-300 mt-4" %>
+    </div>
+  <% end %>
+
+  <div class="mt-6 text-center animate-fade-in-up" style="animation-delay: 0.6s;">
+    <%= link_to "既に契約済みの方はこちら", new_session_path, class: "text-purple-600 hover:underline" %>
+  </div>
+</div>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+</style>

@@ -10,8 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_06_155745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "chatgpt_responses", force: :cascade do |t|
+    t.text "content"
+    t.bigint "diary_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diary_id"], name: "index_chatgpt_responses_on_diary_id"
+  end
+
+  create_table "diaries", force: :cascade do |t|
+    t.text "content"
+    t.date "date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "chatgpt_response"
+    t.string "image"
+    t.json "layout"
+    t.json "images"
+    t.index ["user_id"], name: "index_diaries_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "last_chatgpt_use", precision: nil
+    t.string "activation_state"
+    t.string "activation_token"
+    t.datetime "activation_token_expires_at"
+    t.boolean "admin"
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "chatgpt_responses", "diaries"
+  add_foreign_key "diaries", "users"
 end

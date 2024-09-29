@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -7,4 +8,22 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "tops#index"
+
+  resources :users do
+    member do
+      get :activate
+    end
+  end
+  resource :session, only: [:new, :create, :destroy]
+  resources :diaries do
+    member do
+      get :waiting_for_response
+      get :chatgpt_response
+      get :check_response
+    end
+  end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
