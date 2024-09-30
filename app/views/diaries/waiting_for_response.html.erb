@@ -1,11 +1,20 @@
-<div data-controller="waiting-response" data-waiting-response-diary-id-value="<%= @diary.id %>" class="mx-24">
-  <div data-waiting-response-target="waiting" class="waiting-content">
-    <h1 class="text-2xl mb-4">おお、急がば回れじゃ。しばし待たれよ。</h1>
-    <p class="mb-4">わしの老いた手で、古の魔法書をめくりながら、汝の問いに対する答えを紡いでおる。魔法の力は拙速を好まぬ。じっくりと待つのじゃ。</p>
-    <p data-waiting-response-target="status" class="text-lg font-bold">現在アルディアスが返答を記載中</p>
+<div data-controller="waiting-response" data-waiting-response-diary-id-value="<%= @diary.id %>" class="md:mx-24">
+  <div data-waiting-response-target="skip" class="text-right mb-4" tyle="display: display;">
+    <%= link_to 'スキップ>>>', diary_path(@diary), class: "md:text-sm text-xs text-gray-400" %>
   </div>
 
-  <div data-waiting-response-target="response" class="response-content" style="display: none;">
+
+
+  <div data-waiting-response-target="waiting" class="text-black max-w-2xl mx-auto p-8">
+    <h1 class="text-3xl mb-6 font-serif text-center">おお、急がば回れじゃ。しばし待たれよ。</h1>
+    <p class="mb-6 text-lg font-medium italic">わしの老いた手で、古の魔法書をめくりながら、汝の問いに対する答えを紡いでおる。魔法の力は拙速を好まぬ。じっくりと待つのじゃ。</p>
+    <div class="flex justify-center">
+      <p data-waiting-response-target="status" class="text-xl font-bold border-2 border-amber-700 px-4 py-2 rounded-full bg-amber-200">現在アルディアスが返答を記載中</p>
+    </div>
+  </div>
+
+
+  <div data-waiting-response-target="response" class="text-xl md:px-4" style="display: none;">
     <!-- アルディアスの返答の表示 -->
   </div>
 
@@ -13,3 +22,18 @@
     <%= link_to '日記詳細を見る', diary_path(@diary), class: "mt-4 inline-block px-4 py-2 bg-amber-200 text-amber-900 border-2 border-amber-700 rounded hover:bg-amber-300" %>
   </div>
 </div>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.3s forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
