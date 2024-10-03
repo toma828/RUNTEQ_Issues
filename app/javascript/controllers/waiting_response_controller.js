@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "waiting", "status", "response", "link" ]
+  static targets = [ "waiting", "status", "response", "link", "skip" ]
   static values = { diaryId: Number }
 
   connect() {
@@ -47,20 +47,28 @@ export default class extends Controller {
   }
 
   showResponse(response) {
-    let i = 0
+    let i = 0;
     const intervalId = setInterval(() => {
       if (i < response.length) {
-        this.responseTarget.textContent += response[i]
-        i++
+        const span = document.createElement('span');
+        span.textContent = response[i];
+        span.classList.add('fade-in');
+        this.responseTarget.appendChild(span);
+        i++;
       } else {
-        clearInterval(intervalId)
-        this.showLink()
+        clearInterval(intervalId);
+        this.showLink();
+        this.hideSkip();
       }
-    }, 100) // 100ミリ秒ごとに1文字追加
+    }, 100); // 100ミリ秒ごとに1文字追加
   }
 
   showLink() {
     this.linkTarget.style.display = 'block'
     this.linkTarget.classList.add('animate-fade-in')
+  }
+  
+  hideSkip(){
+    this.skipTarget.style.display = 'none'
   }
 }

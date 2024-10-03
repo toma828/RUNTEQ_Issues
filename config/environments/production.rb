@@ -97,7 +97,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   #config.action_mailer.default_url_options = { host: 'runteqdialy-1f1f8840ec21.herokuapp.com' }
-  config.action_mailer.default_url_options = { host: 'crimoire-of-aldias.com' }
+  config.action_mailer.default_url_options = { host: 'www.crimoire-of-aldias.com' }
   config.action_controller.default_url_options = { host: 'www.crimoire-of-aldias.com' }
 
   config.action_mailer.delivery_method = :smtp

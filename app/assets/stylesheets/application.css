@@ -3709,25 +3709,6 @@ details.collapse summary::-webkit-details-marker {
   text-decoration-line: underline;
 }
 
-.waiting-content, .response-content {
-  font-family: 'Noto Serif JP', serif;
-  background-color: #f0ead6;
-  border: 1px solid #d3c6a6;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.response-content {
-  min-height: 200px;
-  line-height: 32px;
-  font-size: 18px;
-  color: #4a4a4a;
-  background-image: repeating-linear-gradient(transparent, transparent 31px, #A67B5B 31px, #A67B5B 32px);
-  padding: 8px 0;
-}
-
 @keyframes fadeOutDown {
   from {
     opacity: 1;
