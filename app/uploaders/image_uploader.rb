@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ImageUploaderは画像をアップロードするためのクラスです。
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
@@ -17,6 +20,6 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # 許可する拡張子
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 end

@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 
+# 問い合わせメール
 class ContactMailer < ApplicationMailer
   def send_mail(contact)
     @contact = contact

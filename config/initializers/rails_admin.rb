@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
 
@@ -11,8 +13,7 @@ RailsAdmin.config do |config|
 
   ## == CancanCan ==
   config.authorize_with :cancancan
-  # config.authorize_with :cancancan
-  
+
   ## == Pundit ==
   # config.authorize_with :pundit
 

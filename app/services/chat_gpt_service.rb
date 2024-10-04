@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require 'openai'
 
+# ChatGptServiceはユーザーからの入力に基づいてChatGPTの応答を生成します。
 class ChatGptService
   RESET_HOUR = 6 # 朝6時にリセット
-  TIME_ZONE = "Tokyo"
+  TIME_ZONE = 'Tokyo' # freezeを削除
   
   def initialize(user)
     @user = user
@@ -10,20 +13,20 @@ class ChatGptService
   end
 
   def generate_response(user_input)
-    return "今日はもう魔力がなくなってしもうた。日がのぼる時魔力が回復するだろう。" unless can_use_chatgpt?
+    return '今日はもう魔力がなくなってしもうた。日がのぼる時魔力が回復するだろう。' unless can_use_chatgpt?
 
     response = @client.chat(
       parameters: {
-        model: "gpt-3.5-turbo",
+        model: 'gpt-3.5-turbo',
         messages: [
-          { role: "system", content: system_prompt },
-          { role: "user", content: user_input }
-        ],
+          { role: 'system', content: system_prompt },
+          { role: 'user', content: user_input }
+        ]
       }
     )
 
     update_last_use
-    response.dig("choices", 0, "message", "content")
+    response.dig('choices', 0, 'message', 'content')
   end
 
   private

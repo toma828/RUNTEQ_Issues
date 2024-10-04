@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
     email { Faker::Internet.email }
     password { 'password' }
-    password_confirmation { 'password' } 
+    password_confirmation { 'password' }
   end
 
   trait :pending do
@@ -13,11 +15,11 @@ FactoryBot.define do
   trait :active do
     # アクティブな状態にするための設定
     activation_state { 'active' }
+    
     after(:create) do |user|
       # メールを送信して、ユーザーをアクティブにする処理
       user.send_activation_email
-      user.activate! 
+      user.activate!
     end
   end
-
 end
