@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
+# ログイン
 class SessionsController < ApplicationController
   skip_before_action :require_login
-  
+
   def new; end
-  
+
   def create
     @user = login(params[:email], params[:password])
     if @user

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ラインログイン
 class OauthsController < ApplicationController
   skip_before_action :require_login
 
@@ -10,18 +13,18 @@ class OauthsController < ApplicationController
     begin
       Rails.logger.info "Callback initiated for provider: #{provider}"
       Rails.logger.info "Auth params: #{auth_params.inspect}"
-  
+
       @user_hash = sorcery_fetch_user_hash(provider)
       Rails.logger.info "User Hash: #{@user_hash.inspect}"
-  
-      if @user = login_from(provider)
+
+      if (@user = login_from(provider))
         Rails.logger.info "Existing user logged in: #{@user.inspect}"
       else
-        Rails.logger.info "Creating new user from provider"
+        Rails.logger.info 'Creating new user from provider'
         @user = create_from(provider)
         Rails.logger.info "New user created: #{@user.inspect}"
       end
-  
+
       auto_login(@user)
       Rails.logger.info "User logged in: #{@user.inspect}"
       redirect_to root_path, notice: "#{provider.titleize}でログインしました"
@@ -30,7 +33,7 @@ class OauthsController < ApplicationController
       Rails.logger.error "OAuth2 Error Full Details: #{e.inspect}"
       Rails.logger.error e.backtrace.join("\n")
       redirect_to root_path, alert: "#{provider.titleize}でのログインに失敗しました: #{e.message}"
-    rescue => e
+    rescue StandardError => e
       Rails.logger.error "Login Error: #{e.message}"
       Rails.logger.error "Full Error Details: #{e.inspect}"
       Rails.logger.error e.backtrace.join("\n")

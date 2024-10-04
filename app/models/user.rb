@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ユーザークラスはユーザー情報と認証機能を管理します
 class User < ApplicationRecord
   authenticates_with_sorcery!
   before_create :setup_activation, unless: :line_login
@@ -25,10 +28,6 @@ class User < ApplicationRecord
     UserMailer.reset_password_email(self).deliver_now
   end
 
-  def special_character_list
-    special_characters.to_s.split(',')
-  end
-
   def send_activation_email
     UserMailer.activation_needed_email(self).deliver_now unless line_login
   end
@@ -49,10 +48,6 @@ class User < ApplicationRecord
     authentications.exists?(provider: 'line')
   end
 
-  def line_login=(value)
-    @line_login = value
-  end
-
   def unlocked_image_parts
     special_characters.to_s.split(',').uniq.count
   end
@@ -60,4 +55,6 @@ class User < ApplicationRecord
   def special_character_list
     special_characters.to_s.split(',').uniq
   end
+
+  attr_writer :line_login
 end

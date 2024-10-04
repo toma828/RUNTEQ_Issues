@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 namespace :admin do
-  desc "Create an admin user"
+  desc 'Create an admin user'
   task create: :environment do
-    print "Enter admin name: "
-    name = STDIN.gets.chomp
-    print "Enter admin email: "
-    email = STDIN.gets.chomp
-    print "Enter admin password: "
-    password = STDIN.gets.chomp
+    print 'Enter admin name: '
+    name = $stdin.gets.chomp
+    print 'Enter admin email: '
+    email = $stdin.gets.chomp
+    print 'Enter admin password: '
+    password = $stdin.gets.chomp
 
     user = User.new(
       name: name,
@@ -17,11 +19,10 @@ namespace :admin do
     )
 
     if user.save
-      puts "Admin user created successfully."
+      puts 'Admin user created successfully.'
     else
-      puts "Error creating admin user:"
+      puts 'Error creating admin user:'
       puts user.errors.full_messages
     end
   end
 end
-

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Liff（ライン）アプリ時コントローラー
 class PagesController < ApplicationController
   def liff
     if logged_in?

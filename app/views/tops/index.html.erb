@@ -69,8 +69,17 @@
         <br>プライバシーを保護します。
         </div>
       </div>
+
+      <div class="my-8">
+        <h3 class="text-xl font-bold">公式ラインを追加し、ラインからアルディアスに日記を送る</h3>
+        <a href="https://lin.ee/a7i5RzB"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="12" border="0"></a>
+      </div>
     </div>
   <% else %>
+  <div >
+    <h3 class="font-bold">・公式ラインを追加し、ラインからアルディアスに日記を送る</h3>
+    <a href="https://lin.ee/a7i5RzB"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" style="width: 150px; height: auto;" border="0"></a>
+  </div>
   <div class="text-center my-12">
     <%= link_to '"今日の日記を書く"',new_diary_path(date: Date.today),class: "md:text-3xl text-xl relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-left after:scale-x-100 after:bg-neutral-800 after:transition-transform after:duration-150 after:ease-in-out hover:after:origin-bottom-right hover:after:scale-x-0" %>
   </div>

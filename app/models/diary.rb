@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# 日記
 class Diary < ApplicationRecord
   belongs_to :user
   mount_uploader :image, ImageUploader

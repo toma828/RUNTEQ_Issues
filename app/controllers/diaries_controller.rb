@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# 日記コントローラー
 class DiariesController < ApplicationController
-  before_action :set_diary, only: [:show, :edit, :update, :destroy, :waiting_for_response, :chatgpt_response]
+  before_action :set_diary, only: %i[show edit update destroy waiting_for_response chatgpt_response]
 
   def index
     @selected_date = params[:selected_date] ? Date.parse(params[:selected_date]) : Date.today
@@ -18,16 +21,11 @@ class DiariesController < ApplicationController
 
   def create
     @diary = current_user.diaries.build(diary_params)
+
     if @diary.save
-      redirect_to waiting_for_response_diary_path(@diary), notice: '日記が作成されました。'
+      diary_success
     else
-      flash.now[:alert] = @diary.errors.full_messages.join(", ")
-      respond_to do |format|
-        format.html { render :new }
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.update('flash-messages', partial: 'shared/flash_messages')
-        end
-      end
+      diary_error
     end
   end
 
@@ -35,32 +33,12 @@ class DiariesController < ApplicationController
 
   def update
     if @diary.update(diary_params)
-      respond_to do |format|
-        format.html { redirect_to @diary, notice: '日記が更新されました。' }
-        format.json { 
-          render json: { 
-            success: true, 
-            content: @diary.content, 
-            image_url: @diary.image.url,
-            flash: { notice: '日記が更新されました。' }
-          } 
-        }
-      end
+      diary_update_success
     else
-      respond_to do |format|
-        format.html { render :edit }
-        format.json { 
-          render json: { 
-            success: false, 
-            errors: @diary.errors.full_messages,
-            flash: { alert: @diary.errors.full_messages.join(", ")}
-          }, 
-          status: :unprocessable_entity 
-        }
-      end
+      diary_update_error
     end
   end
-  
+
   def destroy
     @diary.destroy
     redirect_to diaries_url, notice: '日記が削除されました。'
@@ -78,7 +56,7 @@ class DiariesController < ApplicationController
   def chatgpt_response
     @chatgpt_response = @diary.chatgpt_response
     if @chatgpt_response.present?
-      if @chatgpt_response.start_with?("今日はもう魔力がなくなってしもうた。日がのぼる時魔力が回復するだろう。")
+      if @chatgpt_response.start_with?('今日はもう魔力がなくなってしもうた。日がのぼる時魔力が回復するだろう。')
         redirect_to @diary, alert: @chatgpt_response
       else
         redirect_to chatgpt_response, notice: 'アルディアスからの返信が届きました。'
@@ -106,6 +84,47 @@ class DiariesController < ApplicationController
 
   def set_diary
     @diary = current_user.diaries.find(params[:id])
+  end
+
+  def diary_success
+    redirect_to waiting_for_response_diary_path(@diary), notice: '日記が作成されました。'
+  end
+
+  def diary_error
+    flash.now[:alert] = @diary.errors.full_messages.join(', ')
+    respond_to do |format|
+      format.html { render :new }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update('flash-messages', partial: 'shared/flash_messages')
+      end
+    end
+  end
+
+  def diary_update_success
+    respond_to do |format|
+      format.html { redirect_to @diary, notice: '日記が更新されました。' }
+      format.json do
+        render json: {
+          success: true,
+          content: @diary.content,
+          image_url: @diary.image.url,
+          flash: { notice: '日記が更新されました。' }
+        }
+      end
+    end
+  end
+
+  def diary_update_error
+    respond_to do |format|
+      format.html { render :edit }
+      format.json do
+        render json: {
+          success: false,
+          errors: @diary.errors.full_messages,
+          flash: { alert: @diary.errors.full_messages.join(', ') }
+        }, status: :unprocessable_entity
+      end
+    end
   end
 
   def diary_params
