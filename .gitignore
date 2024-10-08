@@ -42,3 +42,4 @@
 # Ignore Rails credentials
 /config/credentials.yml.enc
 /config/credentials.yml.copy.enc
+https-portal/account.key
